@@ -29,6 +29,8 @@ class CustomAuth
             return abort(403, 'Unauthorized access');
         }
 
+      
+
         // If correct guard is authenticated, continue
         return $next($request);
     }

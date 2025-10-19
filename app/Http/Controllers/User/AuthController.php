@@ -25,6 +25,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('web')->attempt($credentials)) {
+            /** @var \App\Models\User|null $user */
+            $user = Auth::guard('web')->user();
+            if ($user->status === 'inactive') {
+                $user->update(['status' => 'active']);
+            }
             return redirect()->route('home');
         }
 
@@ -36,14 +41,14 @@ class AuthController extends Controller
     {
         // 1️⃣ Validation
         $request->validate([
-            'name' => 'required|string|max:255',
+            'full_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);
 
         // 2️⃣ Create new user
         $user = User::create([
-            'name' => $request->name,
+            'full_name' => $request->full_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -57,6 +62,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        /** @var \App\Models\User|null $user */
+        $user = Auth::guard('web')->user();
+        if ($user) {
+            $user->update(['status' => 'inactive']);
+        }
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

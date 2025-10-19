@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone_number', 20)->nullable();
+            $table->string('image')->nullable();
+            $table->float('rating')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
             $table->string('password');
             $table->timestamps();
         });

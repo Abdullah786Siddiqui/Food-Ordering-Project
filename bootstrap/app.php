@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Middleware\CustomAuth;
+use App\Http\Middleware\GuardCheck;
+use App\Http\Middleware\RedirectAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
        $middleware->alias([
 
             'custom_auth' => CustomAuth::class,
+            'RedirectAuth' => RedirectAuth::class
+            // 'guard_check' => GuardCheck::class
+
+
 
 
         ]);

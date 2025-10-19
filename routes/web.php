@@ -11,8 +11,11 @@ use Illuminate\Support\Facades\Route;
 
 // ===== ADMIN =====
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+    Route::middleware('RedirectAuth:admin')->group(function () {
+        Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
+    });
+
 
     Route::middleware('custom_auth:admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
@@ -22,8 +25,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // ===== RESTAURANT =====
 Route::prefix('restaurant')->name('restaurant.')->group(function () {
-    Route::get('/login', [RestaurantAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [RestaurantAuthController::class, 'login'])->name('login.submit');
+
+    Route::middleware('RedirectAuth:restaurant')->group(function () {
+        Route::get('/login', [RestaurantAuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [RestaurantAuthController::class, 'login'])->name('login.submit');
+    });
 
     Route::middleware('custom_auth:restaurant')->group(function () {
         Route::get('/dashboard', [RestaurentController::class, 'index'])->name('dashboard');
@@ -33,8 +39,11 @@ Route::prefix('restaurant')->name('restaurant.')->group(function () {
 
 // ===== DELIVERY PARTNER =====
 Route::prefix('delivery_partner')->name('delivery.')->group(function () {
-    Route::get('/login', [DeliveryAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [DeliveryAuthController::class, 'login'])->name('login.submit');
+
+    Route::middleware('RedirectAuth:delivery_partner')->group(function () {
+        Route::get('/login', [DeliveryAuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [DeliveryAuthController::class, 'login'])->name('login.submit');
+    });
 
     Route::middleware('custom_auth:delivery_partner')->group(function () {
         Route::get('/dashboard', [delivery_partnerController::class, 'index'])->name('dashboard');
@@ -44,11 +53,14 @@ Route::prefix('delivery_partner')->name('delivery.')->group(function () {
 
 // ===== USER =====
 Route::prefix('user')->name('user.')->group(function () {
-    Route::get('/login', [UserAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [UserAuthController::class, 'login'])->name('login.submit');
-    Route::get('/register', [UserAuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
-    Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+    Route::middleware('RedirectAuth:web')->group(function () {
+        Route::get('/login', [UserAuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [UserAuthController::class, 'login'])->name('login.submit');
+        Route::get('/register', [UserAuthController::class, 'showRegisterForm'])->name('register');
+        Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
+    });
+        Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+
 });
 
 // ===== HOME PAGE =====

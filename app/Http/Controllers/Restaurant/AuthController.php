@@ -18,6 +18,10 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('restaurant')->attempt($credentials)) {
+            $restaurant = Auth::guard('restaurant')->user();
+            if ($restaurant && $restaurant->status === 'inactive') {
+                $restaurant->update(['status' => 'active']);
+            }
             return redirect()->route('restaurant.dashboard');
         }
 
@@ -26,9 +30,13 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        /** @var \App\Models\Restaurant|null $restaurant */
+        $restaurant = Auth::guard('restaurant')->user();
+        if ($restaurant) {
+            $restaurant->update(['status' => 'inactive']);
+        }
         Auth::guard('restaurant')->logout();
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
         return redirect()->route('restaurant.login');
     }
