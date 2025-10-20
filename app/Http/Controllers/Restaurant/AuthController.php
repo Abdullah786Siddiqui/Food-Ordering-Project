@@ -18,6 +18,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('restaurant')->attempt($credentials)) {
+        /** @var \App\Models\Restaurant|null $restaurant */
             $restaurant = Auth::guard('restaurant')->user();
             if ($restaurant && $restaurant->status === 'inactive') {
                 $restaurant->update(['status' => 'active']);

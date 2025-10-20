@@ -15,6 +15,7 @@ class DeliveryPartner extends Authenticatable
         'name',
         'email',
         'password',
+        'status'
     ];
 
    

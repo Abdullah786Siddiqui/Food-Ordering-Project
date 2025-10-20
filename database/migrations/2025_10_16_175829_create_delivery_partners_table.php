@@ -12,9 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('delivery_partners', function (Blueprint $table) {
-             $table->id();
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('cnic', 15)->unique();
+            $table->string('phone_number', 20)->unique();
+            $table->date('dob')->nullable();
+            $table->enum('vehical', ['bike', 'cycle'])->default('bike');
+            $table->enum('status', ['inactive', 'active', 'blocked'])->default('inactive');
             $table->string('password');
             $table->timestamps();
         });

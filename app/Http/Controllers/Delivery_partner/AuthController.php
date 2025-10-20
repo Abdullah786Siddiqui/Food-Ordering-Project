@@ -18,6 +18,11 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('delivery_partner')->attempt($credentials)) {
+            /** @var \App\Models\DeliveryPartner|null $delivery */
+            $delivery = Auth::guard('delivery_partner')->user();
+            if ($delivery->status === 'inactive') {
+                $delivery->update(['status' => 'active']);
+            }
             return redirect()->route('delivery.dashboard');
         }
 
@@ -26,11 +31,15 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        /** @var \App\Models\DeliveryPartner|null $delivery */
+        $delivery = Auth::guard('delivery_partner')->user();
+          if ($delivery) {
+            $delivery->update(['status' => 'inactive']);
+        }
         Auth::guard('delivery_partner')->logout();
-          $request->session()->invalidate();
+        $request->session()->invalidate();
 
         $request->session()->regenerateToken();
         return redirect()->route('delivery.login');
     }
 }
-

@@ -20,8 +20,24 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+
+
     public function run(): void
     {
+
+        $province = Province::create([
+            'province_name' => 'sindh',
+            'status' => 'inactive',
+        ]);
+
+        $city =  City::create([
+            'province_id' => $province->id,
+            'city_name' => 'karachi',
+            'status' => 'inactive',
+
+        ]);
+
         $user = User::create([
             'full_name' => 'user',
             'email' => 'user@gmail.com',
@@ -32,7 +48,7 @@ class UserSeeder extends Seeder
 
         UserLocation::create([
             'user_id' => $user->id,
-            'city' => 'karachi',
+            'city_id' => $city->id,
             'address' => 'Suujani sector L-1 plot L-8',
             'country' => 'Pakistan',
             'latitude' => '25.0102241',
@@ -45,20 +61,6 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123'),
-        ]);
-
-
-
-        Province::create([
-            'province_name' => 'sindh',
-            'status' => 'inactive',
-        ]);
-
-        City::create([
-            'province_id' => '1',
-            'city_name' => 'karachi',
-            'status' => 'inactive',
-
         ]);
 
         $restaurant = Restaurant::create([
@@ -86,17 +88,19 @@ class UserSeeder extends Seeder
             'week_day' => 'Moday to Sunday',
             'opening_time' => '09:00:00',
             'closing_time' => '21:00:00',
-            
+
         ]);
-
-
-
 
 
         DeliveryPartner::create([
             'name' => 'ali',
             'email' => 'ali@gmail.com',
+            'cnic' => '4240179256693',
+            'phone_number' => '03160116389',
+            'dob'=> '1998-05-12',
             'password' => Hash::make('123'),
         ]);
+
+        
     }
 }

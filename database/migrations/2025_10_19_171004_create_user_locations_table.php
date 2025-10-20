@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->text('address')->nullable();
-            $table->string('city')->nullable();
+            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
             $table->string('country')->default('Pakistan');
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
