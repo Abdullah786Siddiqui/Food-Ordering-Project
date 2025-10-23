@@ -20,6 +20,8 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->enum('vehical', ['bike', 'cycle'])->default('bike');
             $table->enum('status', ['inactive', 'active', 'blocked'])->default('inactive');
+             $table->integer('total_deliveries')->default(0);
+             $table->string('profile_image')->nullable();
             $table->string('password');
             $table->timestamps();
         });

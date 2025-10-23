@@ -15,8 +15,17 @@ class DeliveryPartner extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number',
+        'dob',
+        'cnic',
+        'total_deliveries',
+        'profile_image',
+        'vehical',
         'status'
     ];
 
-   
+    public function location()
+    {
+        return $this->hasOne(DeliverPartnerLocation::class, 'delivery_partner_id');
+    }
 }

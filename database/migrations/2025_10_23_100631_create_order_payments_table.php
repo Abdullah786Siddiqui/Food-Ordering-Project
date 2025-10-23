@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('order_payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('profile_image')->nullable();
-            $table->string('password');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->float('amount');
+            $table->enum('payment_mode', ['cod', 'credit_card'])->default('cod');
+            $table->enum('payment_status', ['success', 'failed'])->default('failed');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('order_payments');
     }
 };

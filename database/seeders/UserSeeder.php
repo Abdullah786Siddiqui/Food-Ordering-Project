@@ -4,7 +4,14 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\City;
+use App\Models\DeliverPartnerLocation;
 use App\Models\DeliveryPartner;
+use App\Models\MenuCategory;
+use App\Models\MenuItem;
+use App\Models\Order;
+use App\Models\OrderAddress;
+use App\Models\OrderItem;
+use App\Models\OrderPayment;
 use App\Models\Province;
 use App\Models\Restaurant;
 use App\Models\RestaurantLocation;
@@ -42,6 +49,7 @@ class UserSeeder extends Seeder
             'full_name' => 'user',
             'email' => 'user@gmail.com',
             'phone_number' => '03160116389',
+            'profile_image' => 'users/user1.jpg',
             'status' => 'inactive',
             'password' => Hash::make('123')
         ]);
@@ -60,6 +68,7 @@ class UserSeeder extends Seeder
         Admin::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
+            'profile_image' => 'admins/admin1.jpg',
             'password' => Hash::make('123'),
         ]);
 
@@ -97,10 +106,66 @@ class UserSeeder extends Seeder
             'email' => 'ali@gmail.com',
             'cnic' => '4240179256693',
             'phone_number' => '03160116389',
-            'dob'=> '1998-05-12',
-            'password' => Hash::make('123'),
+            'profile_image' => 'delivery_partners/delivery1.jpg',
+            'dob' => '1998-05-12',
+            'password' => Hash::make('123')
         ]);
 
-        
+        DeliverPartnerLocation::create([
+            'city_id' => 1,
+            'province_id' => 1,
+            'address' => 'noth karachi sector 5-D plot-208',
+            'locality' => 'north Karachi',
+            'latitude' => '25.0115000',
+            'longitude' => '67.0640000'
+        ]);
+
+        $menuCategory =  MenuCategory::create([
+            'category_name' => 'Biryani'
+        ]);
+
+        $menuItem = MenuItem::create([
+            'restaurant_id' => $restaurant->id,
+            'menu_categories_id' => $menuCategory->id,
+            'item_name' => 'Chicken Biryani',
+            'description' => 'Spicy chicken biryani with raita',
+            'image_url' => 'menu/chicken_biryani.jpg',
+            'price' => 450.00,
+            'rating' => 4.7,
+        ]);
+
+        $order = Order::create([
+            'user_id' => $user->id,
+            'restaurant_id' => $restaurant->id,
+            'total_amount' => 950.00,
+            'payment_mode' => 'COD',
+            'payment_status' => 'paid',
+            'status' => 'delivered',
+        ]);
+
+        OrderItem::create([
+            'order_id' => $order->id,
+            'menu_id' => $menuItem->id,
+            'product_name' => $menuItem->item_name,
+            'price' => $menuItem->price,
+            'quantity' => 2,
+            'total_amount' => $menuItem->price * 2,
+        ]);
+
+        OrderAddress::create([
+            'order_id' => $order->id,
+            'address' => 'Sector L-1, Plot L-8, Karachi',
+            'locality' => 'Surjani Town',
+            'city_id' => $city->id,
+            'latitude' => '25.0102241',
+            'longitude' => '67.0628654',
+        ]);
+
+        OrderPayment::create([
+            'order_id' => $order->id,
+            'amount' => 1040.00,
+            'payment_mode' => 'COD',
+            'payment_status' => 'success',
+        ]);
     }
 }
