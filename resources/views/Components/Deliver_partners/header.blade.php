@@ -23,7 +23,7 @@
       </button>
 
      <!-- Logo -->
-<a href="{{ route('restaurant.dashboard') }}" class="flex  lg:ml-4 items-center text-2xl font-bold tracking-tight text-gray-800 dark:text-white  transition-colors">
+<a href="{{ route('delivery.dashboard') }}" class="flex  lg:ml-4 items-center text-2xl font-bold tracking-tight text-gray-800 dark:text-white  transition-colors">
  Delivery <span class="text-red-600 dark:text-red-400 ml-1">Partners</span>
 </a>
 
@@ -120,11 +120,11 @@
     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">Settings</a></li>
     <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">Earnings</a></li>
 
-      <form method="POST" action="{{ route('restaurant.logout') }}">
+      <form method="POST" action="{{ route('delivery.logout') }}">
     @csrf
     <li>
         <button type="submit" 
-            class="w-full text-left block px-4 py-2 text-gray-700 hover:bg-gray-100 
+            class="w-full text-left block px-4 py-2 cursor-pointer text-gray-700 hover:bg-gray-100 
             dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white">
             Logout
         </button>

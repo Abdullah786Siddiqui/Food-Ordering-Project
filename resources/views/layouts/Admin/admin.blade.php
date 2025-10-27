@@ -15,7 +15,7 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body style="background-color: whitesmoke">
       {{-- <nav class="flex items-center justify-end gap-4">
                
                                            <form method="POST" action="{{ route('admin.logout') }}">
@@ -29,7 +29,7 @@
      {{-- Sidebar --}}
 @include('Components.Admin.sidebar')
         <!-- Content -->
-        <main class="sm:ml-60 p-8 mt-12   h-[calc(100vh-4rem)] overflow-y-auto " >
+        <main class="sm:ml-60 p-8 max-sm:p-2 mt-12   h-[calc(100vh-4rem)] overflow-y-auto " >
             @yield('admin')
         </main>
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\RestaurantController;
 use App\Http\Controllers\Delivery_partner\AuthController as DeliveryAuthController;
 use App\Http\Controllers\Delivery_partner\delivery_partnerController;
 use App\Http\Controllers\Restaurant\AuthController as RestaurantAuthController;
@@ -19,6 +20,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('custom_auth:admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store']);
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });

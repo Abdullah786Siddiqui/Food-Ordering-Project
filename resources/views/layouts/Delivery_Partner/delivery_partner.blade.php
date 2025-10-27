@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@
      {{-- Sidebar --}}
 @include('Components.Deliver_partners.sidebar')
         <!-- Content -->
-        <main class="sm:ml-60 p-8 mt-12   h-[calc(100vh-4rem)] overflow-y-auto " >
+        <main style="background-color: whitesmoke" class="sm:ml-60 p-8 mt-6   h-[calc(100vh-4rem)] overflow-y-auto " >
             @yield('delivery_partner')
         </main>
 
