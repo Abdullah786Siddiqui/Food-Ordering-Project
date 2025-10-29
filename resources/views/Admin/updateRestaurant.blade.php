@@ -96,7 +96,7 @@
                 <label for="email" class="block mb-2 font-medium text-gray-700">
                     Email Address <span class="text-red-500">*</span>
                 </label>
-                <input type="email" id="email" name="email" value="{{ old('email', $restaurant->email) }}"
+                <input type="email" id="email" name="email" value="{{ old('email', $restaurant->locations->) }}"
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                        @error('email')
         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

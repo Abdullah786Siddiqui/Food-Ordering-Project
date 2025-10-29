@@ -47,10 +47,25 @@ class RestaurantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Restaurant $restaurant)
+    public function editRestaurant(Restaurant $restaurant, RestaurantLocation $location)
     {
-        $restaurant->load('locations.city', 'locations.province', 'locations.timings');
-        return view('Admin.updateRestaurant', compact('restaurant'));
+        // ✅ Safety check: location must belong to same restaurant
+        if ($location->restaurant_id !== $restaurant->id) {
+            abort(404);
+        }
+
+        // ✅ Load all nested relationships for the location
+        $location->load([
+            'city',
+            'province',
+            'timings',
+        ]);
+        return response()->json([
+            'status'     => true,
+            'restaurant' => $restaurant,
+            'location'   => $location,
+        ]);
+        // return view('Admin.updateRestaurant', compact('restaurant', 'location'));
     }
 
     /**

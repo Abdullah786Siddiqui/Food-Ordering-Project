@@ -20,8 +20,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('custom_auth:admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store' ,'show']);
+        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store', 'show']);
         Route::get('/restaurants/branches/{id}', [RestaurantController::class, 'restaurantBranches'])->name('restaurants.branches');
+        Route::get('/restaurant/{restaurant}/location/{location}/edit', [RestaurantController::class,'editRestaurant' ]);
+        // http://127.0.0.1:8000/admin/restaurant/1/location/3/edit
+
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });
@@ -62,8 +65,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/register', [UserAuthController::class, 'showRegisterForm'])->name('register');
         Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
     });
-        Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
-
+    Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
 });
 
 // ===== HOME PAGE =====
