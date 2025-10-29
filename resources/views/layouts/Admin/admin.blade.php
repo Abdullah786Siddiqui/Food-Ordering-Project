@@ -24,12 +24,15 @@
         </form>
                   
                 </nav> --}}
+
    {{-- navbar --}}
 @include('Components.Admin.header')
      {{-- Sidebar --}}
 @include('Components.Admin.sidebar')
         <!-- Content -->
         <main class="sm:ml-60 p-8 max-sm:p-2 mt-12   h-[calc(100vh-4rem)] overflow-y-auto " >
+            @include('Components.Toast.toast')
+
             @yield('admin')
         </main>
 

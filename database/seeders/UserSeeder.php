@@ -88,8 +88,11 @@ class UserSeeder extends Seeder
             'province_id' => 1,
             'address' => 'noth karachi sector 5-D plot-208',
             'locality' => 'north Karachi',
+            'branch_phone_number' => 'main',
+            'branch_email' => 'main',
             'latitude' => '25.0115000',
-            'longitude' => '67.0640000'
+            'longitude' => '67.0640000',
+            'is_main' => true
         ]);
 
         RestaurantTiming::create([
@@ -167,5 +170,29 @@ class UserSeeder extends Seeder
             'payment_mode' => 'COD',
             'payment_status' => 'success',
         ]);
+
+        
     }
 }
+
+/////Restaurant Other location 
+//  $res_location = RestaurantLocation::create([
+//             'restaurant_id' => 1,
+//             'city_id' => 1,
+//             'province_id' => 1,
+//             'address' => 'Bansroad Food Street plot-5A',
+//             'locality' => 'Bansroad',
+//             'branch_phone_number' => '03124797334',
+//             'branch_email' => 'pizzamax2@gmail.com',
+//             'latitude' => '25.0115000',
+//             'longitude' => '67.0640000',
+//             'is_main' => false,
+//         ]);
+
+//         RestaurantTiming::create([
+//             'restaurant_location_id' => $res_location->id,
+//             'week_day' => 'Moday to Sunday',
+//             'opening_time' => '09:00:00',
+//             'closing_time' => '21:00:00',
+
+//         ]);

@@ -24,6 +24,8 @@ return new class extends Migration
                 ->onDelete('set null');
             $table->text('address')->nullable();
             $table->text('locality')->nullable();
+            $table->string('branch_email')->unique();
+            $table->string('branch_phone_number', 20)->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamps();

@@ -20,7 +20,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::middleware('custom_auth:admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store']);
+        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store' ,'show']);
+        Route::get('/restaurants/branches/{id}', [RestaurantController::class, 'restaurantBranches'])->name('restaurants.branches');
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });

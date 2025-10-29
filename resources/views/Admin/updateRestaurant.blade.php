@@ -1,10 +1,15 @@
 @extends('layouts.Admin.admin')
 @section('admin')
-   <header class="mb-6 max-sm:mt-6 bg-gradient-to-r from-indigo-50 via-purple-50 to-transparent rounded-xl p-4 border border-indigo-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
+ 
+
+
+        <form action="{{ route('admin.restaurants.update' , $restaurant->id) }}" method="POST" enctype="multipart/form-data" class="space-y-10">
+          @csrf
+            <header class="mb-6 max-sm:mt-6 bg-gradient-to-r from-indigo-50 via-purple-50 to-transparent rounded-xl p-4 border border-indigo-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
   <div>
     <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
       
-      Restaurant Profile Editor<span class="text-indigo-600 text-3xl">🍕</span>
+      Restaurant Management<span class="text-indigo-600 text-3xl">🍕</span>
     </h1>
     <p class="text-gray-600 text-sm mt-0.5">
       Manage details for 
@@ -13,14 +18,11 @@
   </div>
 
   <button
-    class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition-all duration-200">
+    class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition-all duration-200 cursor-pointer">
     Save Changes
   </button>
 </header>
 
-
-
-        <form action="/update-restaurant/1" method="POST" enctype="multipart/form-data" class="space-y-10">
             <input type="hidden" name="_method" value="PUT"> 
             
           <div class="bg-white shadow-lg rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10 ">
@@ -36,15 +38,16 @@
   <div class="relative group w-full">
     <!-- Image -->
     <img 
+      id="preview-image"
       src="{{ asset('storage/' . $restaurant->image) }}"  
       alt="Restaurant Banner Image"
-      class="w-full h-72 object-cover rounded-2xl border-4 border-gray-100 shadow-lg"
+      class="w-full h-72 object-cover rounded-2xl border-4 border-gray-100 shadow-lg transition-all duration-300"
     >
 
     <!-- Overlay with Button -->
     <div class="absolute inset-0 rounded-2xl hidden group-hover:flex items-center justify-center bg-black/30">
       <label for="image" 
-             class="bg-white text-indigo-700 font-semibold px-5 py-2 rounded-full shadow cursor-pointer hover:bg-indigo-50">
+             class="bg-white text-indigo-700 font-semibold px-5 py-2 rounded-full shadow cursor-pointer hover:bg-indigo-50 transition">
         <i class="ri-camera-line mr-2"></i> Change Image
       </label>
     </div>
@@ -59,6 +62,21 @@
   </p>
 </div>
 
+<!-- JS Preview Script -->
+<script>
+  document.getElementById('image').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview-image');
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => preview.src = e.target.result;
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
+
+
         <!-- Right side: Form Fields -->
         <div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
 
@@ -66,24 +84,34 @@
                 <label for="name" class="block mb-2 font-medium text-gray-700">
                     Restaurant Name <span class="text-red-500">*</span>
                 </label>
-                <input type="text" id="name" name="name" value="{{ $restaurant->name }}" required
+                <input type="text" id="name" name="name" value="{{ old('name', $restaurant->name) }}"
+ 
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                      @error('name')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+          @enderror
             </div>
 
             <div>
                 <label for="email" class="block mb-2 font-medium text-gray-700">
                     Email Address <span class="text-red-500">*</span>
                 </label>
-                <input type="email" id="email" name="email" value="{{ $restaurant->email }}" required
+                <input type="email" id="email" name="email" value="{{ old('email', $restaurant->email) }}"
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                       @error('email')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+          @enderror
             </div>
 
             <div>
                 <label for="phone_number" class="block mb-2 font-medium text-gray-700">
                     Phone Number <span class="text-red-500">*</span>
                 </label>
-                <input type="tel" id="phone_number" name="phone_number" value="{{ $restaurant->phone_number }}" required
+                <input type="tel" id="phone_number" name="phone_number" value="{{ old('phone_number', $restaurant->phone_number) }}" 
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+                       @error('phone_number')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+          @enderror
             </div>
 
             <div>
@@ -98,10 +126,10 @@
             <div>
                 <label for="status" class="block mb-2 font-medium text-gray-700">Operational Status</label>
                 <div class="relative">
-                    <select id="status" name="status" value="{{ $restaurant->status }}"
+                    <select id="status" name="status" value="{{  $restaurant->status }}"
                         class="w-full px-4 py-2.5 border border-gray-300 rounded-xl appearance-none bg-white transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                        <option value="active">Active (Online)</option>
-                        <option value="inactive" selected>Inactive (Offline)</option>
+                        <option value="active">Active </option>
+                        <option value="inactive" selected>Inactive </option>
                         <option value="maintenance">Maintenance</option>
                     </select>
                     <span class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400">
@@ -110,9 +138,10 @@
                         </svg>
                     </span>
                 </div>
+               
             </div>
 
-<div>
+{{-- <div>
   <label for="password" class="block mb-2 font-medium text-gray-700">
     Reset Password
   </label>
@@ -157,7 +186,7 @@ function togglePassword() {
     eyeClosed.classList.remove('hidden');
   }
 }
-</script>
+</script> --}}
 
         </div>
     </div>
@@ -182,7 +211,7 @@ function togglePassword() {
           <label for="city_id" class="block mb-2 font-medium text-gray-700">
             City <span class="text-red-500">*</span>
           </label>
-          <select id="city_id" name="city_id" required
+          <select id="city_id" name="city_id" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
             <option value="1" selected>{{ $restaurant->locations->first()->city->city_name  ?? '' }}</option>
           </select>
@@ -193,7 +222,7 @@ function togglePassword() {
           <label for="province_id" class="block mb-2 font-medium text-gray-700">
             Province <span class="text-red-500">*</span>
           </label>
-          <select id="province_id" name="province_id" required
+          <select id="province_id" name="province_id" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
             <option value="1" selected>{{ $restaurant->locations->first()->province->province_name  ?? '' }}
 </option>
@@ -205,39 +234,67 @@ function togglePassword() {
           <label for="locality" class="block mb-2 font-medium text-gray-700">
             Locality / Area <span class="text-red-500">*</span>
           </label>
-          <input type="text" id="locality" name="locality" value="{{ $restaurant->locations->first()->locality  ?? '' }}" required
+          <input type="text" id="locality" name="locality" value="{{old('locality', $restaurant->locations->first()->locality ?? '')}}" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
+              @error('locality')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
         </div>
+<!-- Address -->
+<div class="md:col-span-2">
+  <label for="address" class="block mb-2 font-medium text-gray-700">
+    Full Street Address <span class="text-red-500">*</span>
+  </label>
+  <textarea 
+    id="address" 
+    name="address" 
+    rows="2"
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >{{ old('address', $restaurant->locations->first()->address ?? '') }}</textarea>
+  
+  @error('address')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
 
-        <!-- Address -->
-        <div class="md:col-span-2">
-          <label for="address" class="block mb-2 font-medium text-gray-700">
-            Full Street Address <span class="text-red-500">*</span>
-          </label>
-          <textarea id="address" name="address" rows="2" required
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">{{ $restaurant->locations->first()->address ?? '' }}
-</textarea>
-        </div>
+<!-- Latitude -->
+<div>
+  <label for="latitude" class="block mb-2 font-medium text-gray-700">
+    Latitude <span class="text-red-500">*</span>
+  </label>
+  <input 
+    type="text" 
+    id="latitude" 
+    name="latitude" 
+    value="{{ old('latitude', $restaurant->locations->first()->latitude ?? '') }}" 
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >
+  <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 25.0115000)</p>
+  
+  @error('latitude')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
 
-        <!-- Latitude -->
-        <div>
-          <label for="latitude" class="block mb-2 font-medium text-gray-700">
-            Latitude <span class="text-red-500">*</span>
-          </label>
-          <input type="text" id="latitude" name="latitude" value="{{ $restaurant->locations->first()->latitude  ?? '' }}" required
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-          <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 25.0115000)</p>
-        </div>
+<!-- Longitude -->
+<div>
+  <label for="longitude" class="block mb-2 font-medium text-gray-700">
+    Longitude <span class="text-red-500">*</span>
+  </label>
+  <input 
+    type="text" 
+    id="longitude" 
+    name="longitude"  
+    value="{{ old('longitude', $restaurant->locations->first()->longitude ?? '') }}" 
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >
+  <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 67.0640000)</p>
+  
+  @error('longitude')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
 
-        <!-- Longitude -->
-        <div>
-          <label for="longitude" class="block mb-2 font-medium text-gray-700">
-            Longitude <span class="text-red-500">*</span>
-          </label>
-          <input type="text" id="longitude" name="longitude"  value="{{ $restaurant->locations->first()->longitude  ?? '' }}" required
-            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-          <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 67.0640000)</p>
-        </div>
 
       </div>
     </div>
@@ -264,24 +321,61 @@ function togglePassword() {
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <div>
-                        <label for="week_day" class="block mb-2 font-medium text-gray-700">Days Open <span class="text-red-500">*</span></label>
-                        <input type="text" id="week_day" name="week_day"  value="{{ $restaurant->locations->first()->timings->first()->week_day  }}"required
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                        <p class="mt-1 text-xs text-gray-500">e.g., 'Mon-Sun' or 'Fri-Sun'.</p>
-                    </div>
+                   <!-- Days Open -->
+<div>
+  <label for="week_day" class="block mb-2 font-medium text-gray-700">
+    Days Open <span class="text-red-500">*</span>
+  </label>
+  <input 
+    type="text" 
+    id="week_day" 
+    name="week_day"  
+    value="{{ old('week_day', $restaurant->locations->first()->timings->first()->week_day ?? '') }}"
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >
+  <p class="mt-1 text-xs text-gray-500">e.g., 'Mon-Sun' or 'Fri-Sun'.</p>
 
-                    <div>
-                        <label for="opening_time" class="block mb-2 font-medium text-gray-700">Opening Time <span class="text-red-500">*</span></label>
-                        <input type="time" id="opening_time" name="opening_time"  value="{{ $restaurant->locations->first()->timings->first()->opening_time }}" required
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                    </div>
+  @error('week_day')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
 
-                    <div>
-                        <label for="closing_time" class="block mb-2 font-medium text-gray-700">Closing Time <span class="text-red-500">*</span></label>
-                        <input type="time" id="closing_time" name="closing_time" value="{{ $restaurant->locations->first()->timings->first()->closing_time }}" required
-                            class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-                    </div>
+<!-- Opening Time -->
+<div>
+  <label for="opening_time" class="block mb-2 font-medium text-gray-700">
+    Opening Time <span class="text-red-500">*</span>
+  </label>
+  <input 
+    type="time" 
+    id="opening_time" 
+    name="opening_time"  
+    value="{{ old('opening_time', $restaurant->locations->first()->timings->first()->opening_time ?? '') }}" 
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >
+
+  @error('opening_time')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
+
+<!-- Closing Time -->
+<div>
+  <label for="closing_time" class="block mb-2 font-medium text-gray-700">
+    Closing Time <span class="text-red-500">*</span>
+  </label>
+  <input 
+    type="time" 
+    id="closing_time" 
+    name="closing_time" 
+    value="{{ old('closing_time', $restaurant->locations->first()->timings->first()->closing_time ?? '') }}" 
+    class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+  >
+
+  @error('closing_time')
+    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+  @enderror
+</div>
+
                 </div>
             </div>
 

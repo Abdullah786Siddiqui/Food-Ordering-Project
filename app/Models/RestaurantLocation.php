@@ -13,6 +13,9 @@ class RestaurantLocation extends Model
         'address',
         'locality',
         'latitude',
+        'branch_phone_number',
+        'branch_email',
+        'is_main',
         'longitude',
     ];
 

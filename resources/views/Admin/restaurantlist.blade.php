@@ -59,13 +59,16 @@
             Name
         </th>
         <th scope="col" class="px-6 py-3 border-0">
-            Locality
+            Phone
         </th>
         <th scope="col" class="px-6 py-3 border-0">
             Status
         </th>
         <th scope="col" class="px-6 py-3 border-0">
             Days
+        </th>
+          <th scope="col" class="px-6 py-3 border-0">
+            Timing
         </th>
         <th scope="col" class="px-14 py-3 border-0">
             Action
@@ -74,22 +77,22 @@
 </thead>
 
       <tbody>
-<tbody>
+
 @forelse ($restaurants as $restaurant)
-    @foreach($restaurant->locations as $location)
+ 
         <tr class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200">
             
             <!-- Checkbox -->
             <td class="w-4 p-2">
                 <div class="flex items-center justify-center">
-                    <input id="checkbox-{{ $restaurant->id }}-{{ $location->id }}" type="checkbox" 
+                    <input  type="checkbox" 
                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="checkbox-{{ $restaurant->id }}-{{ $location->id }}" class="sr-only">Select row</label>
+                    <label class="sr-only">Select row</label>
                 </div>
             </td>
 
             <!-- Restaurant Name & Email -->
-            <th scope="row" class="flex flex-col sm:flex-row items-center px-2 py-2 text-gray-900 dark:text-white">
+            <th scope="row" class="flex flex-col lg:flex-row items-center px-2 py-2 text-gray-900 dark:text-white">
                 <img class="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"   src="{{ asset('storage/' . $restaurant->image) }}"  alt="Restaurant image">
                 <div class="mt-1 sm:mt-0 sm:ms-2 text-center sm:text-left">
                     <div class="text-sm font-semibold truncate">{{ $restaurant->name }}</div>
@@ -98,7 +101,7 @@
             </th>
 
             <!-- Location -->
-            <td class="px-2 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium">{{ $location->locality }}</td>
+            <td class="px-2 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium">{{$restaurant->phone_number ?? 'N/A' }}</td>
 
             <!-- Status -->
             <td class="px-2 py-2 text-sm">
@@ -113,31 +116,204 @@
 
             <!-- Timings -->
             <td class="px-2 py-2 space-y-0.5 text-xs text-gray-600 dark:text-gray-300">
-                @foreach($location->timings as $timing)
-                    <div>{{ $timing->week_day }}: {{ $timing->opening_time }} - {{ $timing->closing_time }}</div>
+                @foreach($restaurant->locations[0]->timings as $timing)
+                    <div>{{ $timing->week_day }}</div>
+                @endforeach
+            </td>
+            <td class="px-2 py-2 space-y-0.5 text-xs text-gray-600 dark:text-gray-300">
+                @foreach($restaurant->locations[0]->timings as $timing)
+                    <div> {{ $timing->opening_time }} - {{ $timing->closing_time }} </div>
                 @endforeach
             </td>
 
             <!-- Actions -->
-            <td class="px-2 py-2 flex gap-1">
-                <a href="{{ route('admin.restaurants.show' , $restaurant->id) }}"
+            <td >
+                <div class="flex items-center justify-start gap-1">
+                <a href="{{ route('admin.restaurants.edit' , $restaurant->id) }}"
                    class="flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
                     <i class="ri-edit-line mr-1"></i> Edit
                 </a>
-                <button command="show-modal" commandfor="dialog"
-                        class="flex items-center px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded hover:bg-red-200 dark:hover:bg-red-600 text-xs font-semibold">
+                <button command="show-modal" commandfor="dialog1"
+                        class="flex items-center px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded hover:bg-red-200 dark:hover:bg-red-600 text-xs font-semibold cursor-pointer">
                     <i class="ri-delete-bin-6-line mr-1"></i> Delete
                 </button>
+<button onclick="restaurantBranches('{{ $restaurant->id }}')" data-modal-target="default-modal" data-modal-toggle="default-modal"
+    class="flex items-center px-2 py-1 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded hover:bg-blue-100 cursor-pointer dark:hover:bg-blue-800 text-xs font-semibold">
+    <i class="ri-more-fill mr-1"></i> More
+</button>
+
+
+
+                </div>
             </td>
 
         </tr>
-    @endforeach
+        
+
+
 @empty
 <tr>
     <td colspan="6" class="text-center py-4 text-gray-500 dark:text-gray-400">No restaurants found.</td>
 </tr>
 @endforelse
 </tbody>
+</table>
 
+<div id="default-modal" tabindex="-1" aria-hidden="true"
+    class=" hidden fixed inset-0 z-50 flex items-center justify-center 
+    overflow-y-auto px-4 py-6 backdrop-blur-[2px] bg-black/40">
 
+    <!-- Modal Wrapper -->
+    <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 
+        rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 
+        overflow-hidden animate-scale-in">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 
+            border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40">
+            
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                📍 Restaurant Locations
+            </h3>
+
+            <button type="button"
+                class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 
+                hover:bg-gray-200/60 dark:hover:bg-gray-600/60 transition rounded-lg w-9 h-9 flex items-center justify-center cursor-pointer"
+                data-modal-hide="default-modal">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-6 max-sm:px-2 py-5 space-y-5">
+
+            <!-- Search -->
+            <div>
+                <input type="text"
+                    placeholder="Search location..."
+                    class="w-full rounded-lg border border-gray-300 dark:border-gray-600 
+                    px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 
+                    outline-none dark:bg-gray-700 dark:text-white placeholder-gray-500 
+                    dark:placeholder-gray-400 bg-gray-50"  />
+            </div>
+
+            <!-- Table -->
+            <div class="overflow-hidden border border-gray-200 dark:border-gray-700 rounded-xl">
+                <table class="w-full text-sm text-left text-gray-600 dark:text-gray-200" id="branchesTable">
+
+                    <thead class="text-xs uppercase bg-gray-100 dark:bg-gray-700 
+                        text-gray-700 dark:text-gray-200 tracking-wide">
+                        <tr>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">City</th>
+                            <th class="px-4 py-3">Address</th>
+                            <th class="px-4 py-3">Timing</th>
+                            <th class="px-4 py-3 text-right">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+
+                      
+
+                     
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+function restaurantBranches(restaurantId) {
+    const tbody = document.querySelector("#branchesTable tbody");
+    
+tbody.innerHTML = `
+<tr class="animate-pulse bg-white dark:bg-gray-800">
+    <!-- Checkbox -->
+    <td class="px-4 py-3">
+        <div class="h-4 w-4 bg-gray-300 dark:bg-gray-700 rounded-full mx-auto"></div>
+    </td>
+    <!-- Name & Email -->
+    <td class="px-4 py-3">
+        <div class="h-4 bg-gray-300 rounded-full dark:bg-gray-700 mb-2 w-28"></div>
+        <div class="h-3 bg-gray-300 rounded-full dark:bg-gray-700 w-20"></div>
+    </td>
+    <!-- Phone -->
+    <td class="px-4 py-3">
+        <div class="h-4 bg-gray-300 rounded-full dark:bg-gray-700 w-20 mx-auto"></div>
+    </td>
+   
+    <!-- Days -->
+    <td class="px-4 py-3">
+        <div class="h-4 bg-gray-300 rounded-full dark:bg-gray-700 w-24 mx-auto"></div>
+    </td>
+    <!-- Timing -->
+    <td class="px-4 py-3">
+        <div class="h-4 bg-gray-300 rounded-full dark:bg-gray-700 w-32 mx-auto"></div>
+    </td>
+    <!-- Actions -->
+    <td class="px-4 py-3">
+        <div class="flex items-center justify-center gap-2">
+            <div class="h-4 w-12 bg-gray-300 rounded-full dark:bg-gray-700"></div>
+            <div class="h-4 w-12 bg-gray-300 rounded-full dark:bg-gray-700"></div>
+        </div>
+    </td>
+</tr>
+`;
+
+    fetch(`/admin/restaurants/branches/${restaurantId}`, {
+        method: "GET",
+        headers: { "Accept": "application/json" },
+        credentials: "include"
+    })
+    .then(res => res.json())
+    .then(res => {
+        let branches = "";
+        res.data.forEach(branch => {
+            const timings = branch.timings.map(t => `${t.week_day}: ${t.opening_time} - ${t.closing_time}`).join("<br>");
+            branches += `
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition">
+                    <td class="px-4 py-3 font-medium">${branch.restaurant.name}</td>
+                    <td class="px-4 py-3">${branch.city.city_name}</td>
+                    <td class="px-4 py-3">${branch.address}</td>
+                    <td class="px-4 py-3">${timings}</td>
+                    <td class="px-4 py-3 text-right">
+                        <div class="flex gap-1 max-sm:gap-2 max-sm:flex-col items-start">
+                            <a href="/admin/restaurants/${restaurantId}/edit"  class="flex items-center px-2 max-sm:px-4 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
+                                <i class="ri-edit-line mr-1"></i> Edit
+                            </a>
+                            <button command="show-modal" commandfor="dialog1"
+                                    class="flex items-center px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded hover:bg-red-200 dark:hover:bg-red-600 text-xs font-semibold cursor-pointer">
+                                <i class="ri-delete-bin-6-line mr-1"></i> Delete
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML = branches || `
+<tr class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <td colspan="5" class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+        🍴 No branches found for this restaurant
+    </td>
+</tr>
+`;
+
+    })
+    .catch(err => {
+        console.error(err);
+        tbody.innerHTML = "<tr><td colspan='5' class='text-center'>Failed to load branches</td></tr>";
+    });
+}
+
+</script>
+
+    
 @endsection
