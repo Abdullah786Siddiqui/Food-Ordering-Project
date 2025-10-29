@@ -15,7 +15,7 @@ class RestaurantTiming extends Model
 
 
     public function location()
-    {
-        return $this->belongsTo(RestaurantLocation::class, 'restaurant_location_id');
-    }
+{
+    return $this->belongsTo(RestaurantLocation::class, 'restaurant_location_id');
+}
 }

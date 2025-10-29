@@ -23,9 +23,9 @@ class RestaurantLocation extends Model
     {
         return $this->belongsTo(Restaurant::class);
     }
-    public function timings()
+    public function timing()
     {
-        return $this->hasMany(RestaurantTiming::class, 'restaurant_location_id');
+        return $this->hasOne(RestaurantTiming::class, 'restaurant_location_id');
     }
     public function city()
     {

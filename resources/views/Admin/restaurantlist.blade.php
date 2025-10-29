@@ -92,16 +92,17 @@
             </td>
 
             <!-- Restaurant Name & Email -->
+             @php $location = $restaurant->locations->first(); @endphp
             <th scope="row" class="flex flex-col lg:flex-row items-center px-2 py-2 text-gray-900 dark:text-white">
                 <img class="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"   src="{{ asset('storage/' . $restaurant->image) }}"  alt="Restaurant image">
                 <div class="mt-1 sm:mt-0 sm:ms-2 text-center sm:text-left">
                     <div class="text-sm font-semibold truncate">{{ $restaurant->name }}</div>
-                    <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $restaurant->email }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ $location->branch_email ?? '' }}</div>
                 </div>
             </th>
 
             <!-- Location -->
-            <td class="px-2 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium">{{$restaurant->phone_number ?? 'N/A' }}</td>
+            <td class="px-2 py-2 text-gray-700 dark:text-gray-300 text-sm font-medium">{{$location->branch_phone_number ?? 'N/A' }}</td>
 
             <!-- Status -->
             <td class="px-2 py-2 text-sm">
@@ -116,20 +117,19 @@
 
             <!-- Timings -->
             <td class="px-2 py-2 space-y-0.5 text-xs text-gray-600 dark:text-gray-300">
-                @foreach($restaurant->locations[0]->timings as $timing)
-                    <div>{{ $timing->week_day }}</div>
-                @endforeach
+             {{ $location->timing->week_day ?? '' }}
             </td>
             <td class="px-2 py-2 space-y-0.5 text-xs text-gray-600 dark:text-gray-300">
-                @foreach($restaurant->locations[0]->timings as $timing)
-                    <div> {{ $timing->opening_time }} - {{ $timing->closing_time }} </div>
-                @endforeach
+             
+                    {{ $location->timing->opening_time ?? '' }} - {{ $location->timing->closing_time ?? '' }}
+               
             </td>
 
             <!-- Actions -->
             <td >
                 <div class="flex items-center justify-start gap-1">
-                <a href="{{ route('admin.restaurants.edit' , $restaurant->id) }}"
+                <a  href="{{ route('admin.restaurants.location.edit', [$restaurant->id, $location->id])}}"
+
                    class="flex items-center px-2 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
                     <i class="ri-edit-line mr-1"></i> Edit
                 </a>
@@ -276,16 +276,18 @@ tbody.innerHTML = `
     .then(res => {
         let branches = "";
         res.data.forEach(branch => {
-            const timings = branch.timings.map(t => `${t.week_day}: ${t.opening_time} - ${t.closing_time}`).join("<br>");
             branches += `
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/60 transition">
                     <td class="px-4 py-3 font-medium">${branch.restaurant.name}</td>
                     <td class="px-4 py-3">${branch.city.city_name}</td>
                     <td class="px-4 py-3">${branch.address}</td>
-                    <td class="px-4 py-3">${timings}</td>
+                   <td class="px-4 py-3">
+    ${branch.timing.week_day} (${branch.timing.opening_time} - ${branch.timing.closing_time})
+</td>
+
                     <td class="px-4 py-3 text-right">
                         <div class="flex gap-1 max-sm:gap-2 max-sm:flex-col items-start">
-                            <a href="/admin/restaurants/${restaurantId}/edit"  class="flex items-center px-2 max-sm:px-4 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
+                            <a href="/admin/restaurant/${branch.restaurant_id}/location/${branch.id}/edit"  class="flex items-center px-2 max-sm:px-4 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
                                 <i class="ri-edit-line mr-1"></i> Edit
                             </a>
                             <button command="show-modal" commandfor="dialog1"

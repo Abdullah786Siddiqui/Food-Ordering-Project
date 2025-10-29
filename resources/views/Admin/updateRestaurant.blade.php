@@ -96,7 +96,7 @@
                 <label for="email" class="block mb-2 font-medium text-gray-700">
                     Email Address <span class="text-red-500">*</span>
                 </label>
-                <input type="email" id="email" name="email" value="{{ old('email', $restaurant->locations->) }}"
+                <input type="email" id="email" name="email" value="{{ old('branch_email', $location->branch_email)}} "
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                        @error('email')
         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -107,7 +107,7 @@
                 <label for="phone_number" class="block mb-2 font-medium text-gray-700">
                     Phone Number <span class="text-red-500">*</span>
                 </label>
-                <input type="tel" id="phone_number" name="phone_number" value="{{ old('phone_number', $restaurant->phone_number) }}" 
+                <input type="tel" id="phone_number" name="phone_number" value="{{ old('branch_phone_number', $location->branch_phone_number) }}" 
                     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                        @error('phone_number')
         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -213,7 +213,7 @@ function togglePassword() {
           </label>
           <select id="city_id" name="city_id" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-            <option value="1" selected>{{ $restaurant->locations->first()->city->city_name  ?? '' }}</option>
+            <option value="1" selected>{{ $location->city->city_name  ?? '' }}</option>
           </select>
         </div>
 
@@ -224,7 +224,7 @@ function togglePassword() {
           </label>
           <select id="province_id" name="province_id" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
-            <option value="1" selected>{{ $restaurant->locations->first()->province->province_name  ?? '' }}
+            <option value="1" selected>{{ $location->province->province_name  ?? '' }}
 </option>
           </select>
         </div>
@@ -234,7 +234,7 @@ function togglePassword() {
           <label for="locality" class="block mb-2 font-medium text-gray-700">
             Locality / Area <span class="text-red-500">*</span>
           </label>
-          <input type="text" id="locality" name="locality" value="{{old('locality', $restaurant->locations->first()->locality ?? '')}}" 
+          <input type="text" id="locality" name="locality" value="{{old('locality', $location->locality ?? '')}}" 
             class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
               @error('locality')
     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -250,7 +250,7 @@ function togglePassword() {
     name="address" 
     rows="2"
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-  >{{ old('address', $restaurant->locations->first()->address ?? '') }}</textarea>
+  >{{ old('address', $location->address ?? '') }}</textarea>
   
   @error('address')
     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -266,7 +266,7 @@ function togglePassword() {
     type="text" 
     id="latitude" 
     name="latitude" 
-    value="{{ old('latitude', $restaurant->locations->first()->latitude ?? '') }}" 
+    value="{{ old('latitude', $location->latitude ?? '') }}" 
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
   >
   <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 25.0115000)</p>
@@ -285,7 +285,7 @@ function togglePassword() {
     type="text" 
     id="longitude" 
     name="longitude"  
-    value="{{ old('longitude', $restaurant->locations->first()->longitude ?? '') }}" 
+    value="{{ old('longitude', $location->longitude ?? '') }}" 
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
   >
   <p class="mt-1 text-xs text-gray-500">Use decimal format (e.g., 67.0640000)</p>
@@ -322,6 +322,7 @@ function togglePassword() {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
                    <!-- Days Open -->
+      
 <div>
   <label for="week_day" class="block mb-2 font-medium text-gray-700">
     Days Open <span class="text-red-500">*</span>
@@ -330,7 +331,7 @@ function togglePassword() {
     type="text" 
     id="week_day" 
     name="week_day"  
-    value="{{ old('week_day', $restaurant->locations->first()->timings->first()->week_day ?? '') }}"
+    value="{{ old('week_day', $location->timing->week_day ?? '') }}"
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
   >
   <p class="mt-1 text-xs text-gray-500">e.g., 'Mon-Sun' or 'Fri-Sun'.</p>
@@ -349,7 +350,7 @@ function togglePassword() {
     type="time" 
     id="opening_time" 
     name="opening_time"  
-    value="{{ old('opening_time', $restaurant->locations->first()->timings->first()->opening_time ?? '') }}" 
+    value="{{ old('opening_time', $location->timing->opening_time ?? '') }}" 
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
   >
 
@@ -367,7 +368,7 @@ function togglePassword() {
     type="time" 
     id="closing_time" 
     name="closing_time" 
-    value="{{ old('closing_time', $restaurant->locations->first()->timings->first()->closing_time ?? '') }}" 
+    value="{{ old('closing_time', $location->timing->closing_time ?? '') }}" 
     class="w-full px-4 py-2.5 border border-gray-300 rounded-xl transition duration-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
   >
 

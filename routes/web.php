@@ -22,8 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
         Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store', 'show']);
         Route::get('/restaurants/branches/{id}', [RestaurantController::class, 'restaurantBranches'])->name('restaurants.branches');
-        Route::get('/restaurant/{restaurant}/location/{location}/edit', [RestaurantController::class,'editRestaurant' ]);
-        // http://127.0.0.1:8000/admin/restaurant/1/location/3/edit
+        Route::get('/restaurant/{restaurant}/location/{location}/edit', [RestaurantController::class,'editRestaurant' ])->name('restaurants.location.edit');
 
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
