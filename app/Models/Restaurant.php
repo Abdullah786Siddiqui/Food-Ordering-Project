@@ -12,16 +12,14 @@ class Restaurant extends Authenticatable
     protected $guard = 'restaurant';
 
     protected $fillable = [
-       'name',
-        'email',
-        'phone_number',
+        'name',
         'image',
         'password',
         'rating',
         'status',
     ];
 
-      public function locations()
+    public function locations()
     {
         return $this->hasMany(RestaurantLocation::class);
     }
@@ -30,6 +28,4 @@ class Restaurant extends Authenticatable
     {
         return $this->hasMany(MenuItem::class, 'restaurant_id');
     }
-
-   
 }

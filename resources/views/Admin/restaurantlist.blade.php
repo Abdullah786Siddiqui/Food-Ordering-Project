@@ -137,7 +137,7 @@
                         class="flex items-center px-2 py-1 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded hover:bg-red-200 dark:hover:bg-red-600 text-xs font-semibold cursor-pointer">
                     <i class="ri-delete-bin-6-line mr-1"></i> Delete
                 </button>
-<button onclick="restaurantBranches('{{ $restaurant->id }}')" data-modal-target="default-modal" data-modal-toggle="default-modal"
+<button onclick="restaurantBranches('{{ $restaurant->id }}', '{{ $restaurant->name }}')"data-modal-target="default-modal" data-modal-toggle="default-modal"
     class="flex items-center px-2 py-1 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded hover:bg-blue-100 cursor-pointer dark:hover:bg-blue-800 text-xs font-semibold">
     <i class="ri-more-fill mr-1"></i> More
 </button>
@@ -172,9 +172,10 @@
         <div class="flex items-center justify-between px-6 py-4 
             border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40">
             
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                📍 Restaurant Locations
-            </h3>
+         <h3 id="modalHeading" class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+  
+</h3>
+
 
             <button type="button"
                 class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 
@@ -230,9 +231,11 @@
     </div>
 </div>
 <script>
-function restaurantBranches(restaurantId) {
+function restaurantBranches(restaurantId , restaurantName) {
     const tbody = document.querySelector("#branchesTable tbody");
-    
+    const modalHeading = document.getElementById("modalHeading");
+    // Update heading dynamically
+    modalHeading.textContent = `📍 Locations for ${restaurantName}`;
 tbody.innerHTML = `
 <tr class="animate-pulse bg-white dark:bg-gray-800">
     <!-- Checkbox -->
@@ -307,7 +310,7 @@ tbody.innerHTML = `
     </td>
 </tr>
 `;
-
+ 
     })
     .catch(err => {
         console.error(err);

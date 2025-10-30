@@ -72,36 +72,36 @@ class UserSeeder extends Seeder
         //     'password' => Hash::make('123'),
         // ]);
 
-        $restaurant = Restaurant::create([
-            'name' => 'Kababjees',
-            'email' => 'Kababjees@gmail.com',
-            'phone_number' => '0360419389',
-            'image' => 'restaurants/restaurant2.jpg',
-            'status' => 'inactive',
-            'rating' => 4.9,
-            'password' => Hash::make('123'),
-        ]);
+        // $restaurant = Restaurant::create([
+        //     'name' => 'Kababjees',
+        //     'email' => 'Kababjees@gmail.com',
+        //     'phone_number' => '0360419389',
+        //     'image' => 'restaurants/restaurant2.jpg',
+        //     'status' => 'inactive',
+        //     'rating' => 4.9,
+        //     'password' => Hash::make('123'),
+        // ]);
 
-        $res_location = RestaurantLocation::create([
-            'restaurant_id' => $restaurant->id,
-            'city_id' => 1,
-            'province_id' => 1,
-            'address' => 'Bharia sector 5-D plot-208',
-            'locality' => 'Bharia',
-            'branch_phone_number' => '0360419389',
-            'branch_email' => 'Kababjees@gmail.com',
-            'latitude' => '25.0115000',
-            'longitude' => '67.0640000',
-            'is_main' => true
-        ]);
+        // $res_location = RestaurantLocation::create([
+        //     'restaurant_id' => $restaurant->id,
+        //     'city_id' => 1,
+        //     'province_id' => 1,
+        //     'address' => 'Bharia sector 5-D plot-208',
+        //     'locality' => 'Bharia',
+        //     'branch_phone_number' => '0360419389',
+        //     'branch_email' => 'Kababjees@gmail.com',
+        //     'latitude' => '25.0115000',
+        //     'longitude' => '67.0640000',
+        //     'is_main' => true
+        // ]);
 
-        RestaurantTiming::create([
-            'restaurant_location_id' => $res_location->id,
-            'week_day' => 'Moday to Sunday',
-            'opening_time' => '09:00:00',
-            'closing_time' => '21:00:00',
+        // RestaurantTiming::create([
+        //     'restaurant_location_id' => $res_location->id,
+        //     'week_day' => 'Moday to Sunday',
+        //     'opening_time' => '09:00:00',
+        //     'closing_time' => '21:00:00',
 
-        ]);
+        // ]);
 
 
         // DeliveryPartner::create([
@@ -123,19 +123,19 @@ class UserSeeder extends Seeder
         //     'longitude' => '67.0640000'
         // ]);
 
-        // $menuCategory =  MenuCategory::create([
-        //     'category_name' => 'Biryani'
-        // ]);
+        $menuCategory =  MenuCategory::create([
+            'category_name' => 'Biryani'
+        ]);
 
-        // $menuItem = MenuItem::create([
-        //     'restaurant_id' => $restaurant->id,
-        //     'menu_categories_id' => $menuCategory->id,
-        //     'item_name' => 'Chicken Biryani',
-        //     'description' => 'Spicy chicken biryani with raita',
-        //     'image_url' => 'menu/chicken_biryani.jpg',
-        //     'price' => 450.00,
-        //     'rating' => 4.7,
-        // ]);
+        $menuItem = MenuItem::create([
+            'restaurant_id' => 2,
+            'menu_categories_id' => $menuCategory->id,
+            'item_name' => 'Chicken Biryani',
+            'description' => 'Spicy chicken biryani with raita',
+            'image_url' => 'menu/chicken_biryani.jpg',
+            'price' => 450.00,
+            'rating' => 4.7,
+        ]);
 
         // $order = Order::create([
         //     'user_id' => $user->id,

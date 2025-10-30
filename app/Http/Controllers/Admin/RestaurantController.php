@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use App\Models\RestaurantLocation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class RestaurantController extends Controller
@@ -51,11 +52,7 @@ class RestaurantController extends Controller
      */
     public function editRestaurant(Restaurant $restaurant, RestaurantLocation $location)
     {
-        // ✅ Safety check: location must belong to same restaurant
-        if ($location->restaurant_id !== $restaurant->id) {
-            abort(404);
-        }
-
+    
         // ✅ Load all nested relationships for the location
         $location->load([
             'city',
@@ -74,12 +71,15 @@ class RestaurantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-  public function update(Request $request, Restaurant $restaurant)
+
+
+public function update(Request $request, Restaurant $restaurant)
 {
     $validated = $request->validate([
+        'location_id'   => 'required|integer',
         'name'          => 'required|string|max:255',
-        'email'         => 'required|email|max:255',
-        'phone_number'  => 'required|string|max:20',
+        'branch_email'         => 'required|email|max:255',
+        'branch_phone_number'  => 'required|string|max:20',
         'status'        => 'required|string',
         'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         'city_id'       => 'required|integer',
@@ -93,55 +93,85 @@ class RestaurantController extends Controller
         'closing_time'  => 'required',
     ]);
 
-    // Handle image
-    if ($request->hasFile('image')) {
-        Storage::disk('public')->delete($restaurant->image ?? '');
-        $validated['image'] = $request->file('image')->store('restaurants', 'public');
-    } else {
-        $validated['image'] = $restaurant->image;
+    $location = RestaurantLocation::where('id', $validated['location_id'])
+                ->where('restaurant_id', $restaurant->id)
+                ->first();
+
+    if (!$location) {
+        return back()->with('error', 'Specified location not found for this restaurant.');
     }
 
-    // Update restaurant
-    $restaurant->update([
-        'name'         => $validated['name'],
-        'email'        => $validated['email'],
-        'phone_number' => $validated['phone_number'],
-        'status'       => $validated['status'],
-        'image'        => $validated['image'],
-    ]);
+    DB::beginTransaction();
 
-    // Update location
-    $location = $restaurant->locations()->first();
-    if ($location) {
-        $location->update([
-            'city_id'     => $validated['city_id'],
-            'province_id' => $validated['province_id'],
-            'locality'    => $validated['locality'],
-            'address'     => $validated['address'],
-            'latitude'    => $validated['latitude'],
-            'longitude'   => $validated['longitude'],
+    try {
+        // Image handling
+        if ($request->hasFile('image')) {
+            if ($restaurant->image) {
+                Storage::disk('public')->delete($restaurant->image);
+            }
+            $imagePath = $request->file('image')->store('restaurants', 'public');
+        } else {
+            $imagePath = $restaurant->image;
+        }
+
+        // Restaurant fill
+        $restaurant->fill([
+            'name'         => $validated['name'],
+    
+            'status'       => $validated['status'],
+            'image'        => $imagePath,
         ]);
 
-        // Update or create timing
+        // Location fill
+        $location->fill([
+            'city_id'             => $validated['city_id'],
+            'province_id'         => $validated['province_id'],
+            'locality'            => $validated['locality'],
+            'address'             => $validated['address'],
+            'latitude'            => $validated['latitude'],
+            'longitude'           => $validated['longitude'],
+            'branch_email'        => $validated['branch_email'] ?? $location->branch_email,
+            'branch_phone_number' => $validated['branch_phone_number'] ?? $location->branch_phone_number,
+        ]);
+
+        // Timing fill
         $timing = $location->timing;
         if ($timing) {
-            $timing->update([
-                'week_day'     => $validated['week_day'],
-                'opening_time' => $validated['opening_time'],
-                'closing_time' => $validated['closing_time'],
-            ]);
-        } else {
-            $location->timing()->create([
+            $timing->fill([
                 'week_day'     => $validated['week_day'],
                 'opening_time' => $validated['opening_time'],
                 'closing_time' => $validated['closing_time'],
             ]);
         }
+
+        // Check if anything changed
+        if (!$restaurant->isDirty() && !$location->isDirty() && (!$timing || !$timing->isDirty())) {
+            DB::rollBack();
+            return redirect()
+                ->route('admin.restaurants.index')
+                ->with('success', 'Nothing to update!');
+        }
+
+        // Save changes
+        if ($restaurant->isDirty()) $restaurant->save();
+        if ($location->isDirty()) $location->save();
+        if ($timing && $timing->isDirty()) $timing->save();
+
+        DB::commit();
+
+    } catch (\Throwable $e) {
+        DB::rollBack();
+        return back()->with('error', 'Something went wrong while updating.')->withInput();
     }
 
-    return redirect()->route('admin.restaurants.index')
-                     ->with('success', 'Restaurant updated successfully!');
+    return redirect()
+        ->route('admin.restaurants.index')
+        ->with('success', 'Restaurant updated successfully!');
 }
+
+
+
+
 
 
 
