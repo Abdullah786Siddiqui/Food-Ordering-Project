@@ -3,11 +3,12 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\RestaurantController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Delivery_partner\AuthController as DeliveryAuthController;
 use App\Http\Controllers\Delivery_partner\delivery_partnerController;
 use App\Http\Controllers\Restaurant\AuthController as RestaurantAuthController;
 use App\Http\Controllers\Restaurant\RestaurentController;
+use App\Http\Controllers\Admin\RestaurantController as RestaurantAdminController;
 use Illuminate\Support\Facades\Route;
 
 // ===== ADMIN =====
@@ -17,13 +18,24 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/login', [AdminAuthController::class, 'login'])->name('login.submit');
     });
 
-
     Route::middleware('custom_auth:admin')->group(function () {
+        //DASHBOARD
         Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-        Route::resource('/restaurants', RestaurantController::class)->except(['create', 'store', 'show']);
-        Route::get('/restaurants/branches/{id}', [RestaurantController::class, 'restaurantBranches'])->name('restaurants.branches');
-        Route::get('/restaurant/{restaurant}/location/{location}/edit', [RestaurantController::class,'editRestaurant' ])->name('restaurants.location.edit');
+        // ===== RESTAURANT PREFIX =====
+        Route::prefix('restaurants')->name('restaurants.')->group(function () {
+            // GET All Main Restaurant 
+            Route::get('/', [RestaurantAdminController::class, 'getMainRestaurant'])->name('main');
+            // GET All Specific Restaurant Branches
+            Route::get('/branches/{id}', [RestaurantAdminController::class, 'restaurantBranches'])->name('branches');
+            // GET All Specific Restaurant Data
+            Route::get('/{restaurant}/location/{location}/edit', [RestaurantAdminController::class, 'editRestaurant'])->name('location.edit');
+            //UPDATE Specific Restaurant
+            Route::put('/{restaurant}', [RestaurantAdminController::class, 'updateRestaurant'])->name('update');
+        });
 
+        //MENU ROUTES
+        Route::get('/menu', [MenuController::class, 'getAllMenu'])->name('menu.list');
+        // ADMIN Logout
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
 });

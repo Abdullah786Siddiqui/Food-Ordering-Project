@@ -3,29 +3,31 @@
  
 
 
-        <form action="{{ route('admin.restaurants.update' , $restaurant->id) }}" method="POST" enctype="multipart/form-data" class="space-y-10">
-          @csrf
+      <form action="{{ route('admin.restaurants.update', $restaurant->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
           <input type="hidden" name="location_id" value="{{ $location->id }}">
 
-            <header class="mb-6 max-sm:mt-6 bg-gradient-to-r from-indigo-50 via-purple-50 to-transparent rounded-xl p-4 border border-indigo-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
-  <div>
-    <h1 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-      
-      Restaurant Management<span class="text-indigo-600 text-3xl">🍕</span>
+  <header class="mb-6 mt-2 bg-gradient-to-r from-indigo-50 via-purple-50 to-transparent rounded-xl p-2 px-4 border border-indigo-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 max-sm:gap-1 shadow-sm">
+  <div class="w-full sm:w-auto">
+    <h1 class="text-2xl  max-sm:text-xl font-bold text-gray-800 flex items-center gap-2 flex-wrap">
+      Restaurant Management <span class="text-indigo-600  text-3xl">🍕</span>
     </h1>
-    <p class="text-gray-600 text-sm mt-0.5">
+    <p class="text-gray-600 text-sm mt-1 sm:mt-0.5">
       Manage details for 
       <span class="font-semibold text-indigo-700">{{ $restaurant->name }}</span>
     </p>
   </div>
 
   <button
-    class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition-all duration-200 cursor-pointer">
+    type="submit" 
+    class="w-full sm:w-auto mt-3 sm:mt-0 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg shadow hover:bg-indigo-700 transition-all duration-200 cursor-pointer">
     Save Changes
   </button>
 </header>
 
-            <input type="hidden" name="_method" value="PUT"> 
+
+            
             
           <div class="bg-white shadow-lg rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10 ">
     <h2 class="text-2xl font-bold text-indigo-600 mb-8 flex items-center">

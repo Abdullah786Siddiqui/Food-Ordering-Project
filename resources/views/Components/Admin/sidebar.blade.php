@@ -24,7 +24,7 @@
             </a>
          </li>
           <li>
-            <a href="{{ route('admin.restaurants.index') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group">
+            <a href="{{ route('admin.restaurants.main') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group">
              <i class="ri-store-2-line"></i>
                <span class="flex-1 ms-2 whitespace-nowrap">Restaurant Partners</span>
             </a>
@@ -35,10 +35,10 @@
                <span class="flex-1 ms-2 whitespace-nowrap">Delivery Partners</span>
             </a>
          </li>
-<li class="relative">
+<li class="relative ">
   <!-- Parent button -->
   <input type="checkbox" id="menu-dropdown" class="peer hidden">
-  <label for="menu-dropdown" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer select-none">
+  <label for="menu-dropdown" class="flex items-center p-2  text-gray-900 rounded-lg dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 cursor-pointer select-none">
     <i class="ri-restaurant-2-line text-lg"></i>
     <span class="flex-1 ms-2 whitespace-nowrap text-left">Menu</span>
     <svg class="w-4 h-4 ml-auto transition-transform duration-200 peer-checked:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
   </label>
 
   <!-- Dropdown -->
-  <ul class="mt-2 space-y-2 pl-8 max-h-0 overflow-hidden transition-all duration-300 peer-checked:max-h-40">
+  <ul class=" space-y-2 pl-8 max-h-0 overflow-hidden transition-all duration-300 peer-checked:max-h-40">
     <li>
       <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700">
         <i class="ri-add-line text-xl me-2"></i>
@@ -55,7 +55,7 @@
       </a>
     </li>
     <li>
-      <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700">
+      <a href="{{ route('admin.menu.list') }}" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-blue-50 dark:text-gray-300 dark:hover:bg-gray-700">
         <i class="ri-list-check text-lg me-2"></i>
         Menu List
       </a>
