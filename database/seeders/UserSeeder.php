@@ -123,15 +123,15 @@ class UserSeeder extends Seeder
         //     'longitude' => '67.0640000'
         // ]);
 
-        $menuCategory =  MenuCategory::create([
-            'category_name' => 'Biryani'
-        ]);
+        // $menuCategory =  MenuCategory::create([
+        //     'category_name' => 'Biryani'
+        // ]);
 
         $menuItem = MenuItem::create([
-            'restaurant_id' => 2,
-            'menu_categories_id' => $menuCategory->id,
-            'item_name' => 'Chicken Biryani',
-            'description' => 'Spicy chicken biryani with raita',
+            'restaurant_id' => 1,
+            'menu_categories_id' => 1,
+            'item_name' => 'Beef Biryani',
+            'description' => 'Spicy Beef biryani with raita',
             'image_url' => 'menu/chicken_biryani.jpg',
             'price' => 450.00,
             'rating' => 4.7,

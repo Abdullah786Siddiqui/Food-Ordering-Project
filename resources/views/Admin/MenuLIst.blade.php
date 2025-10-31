@@ -45,32 +45,17 @@
     <div class="space-y-4">
         <div class="text-xs font-semibold uppercase text-gray-400 tracking-wider">Categories</div>
 
-        <div class="space-y-3">
-            <label class="flex items-center text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition duration-200">
-                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500" checked>
-                <span class="ml-3">Main Food</span>
-            </label>
+      <div class="space-y-2">
+    @forelse ($categories as $category)
+        <label  class="flex items-center text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition duration-200 p-2 rounded-lg hover:bg-blue-50">
+            <input type="checkbox"  onchange="handleCategoryItem(this, '{{ $category->id }}')" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
+            <span class="ml-3">{{ $category->category_name }}</span>
+        </label>
+    @empty
+        <p class="text-xs text-gray-400 italic">No categories found</p>
+    @endforelse
+</div>
 
-            <label class="flex items-center text-sm text-gray-700 cursor-pointer hover:text-gray-900 transition duration-200">
-                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
-                <span class="ml-3">Drinks</span>
-            </label>
-
-            <label class="flex items-center text-sm text-gray-700 cursor-pointer hover:text-gray-900 transition duration-200">
-                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
-                <span class="ml-3">Appetizer</span>
-            </label>
-
-            <label class="flex items-center text-sm text-gray-700 cursor-pointer hover:text-gray-900 transition duration-200">
-                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
-                <span class="ml-3">Dessert</span>
-            </label>
-
-            <label class="flex items-center text-sm text-gray-700 cursor-pointer hover:text-gray-900 transition duration-200">
-                <input type="checkbox" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
-                <span class="ml-3">Side Menu</span>
-            </label>
-        </div>
     </div>
 
 </aside>
@@ -80,8 +65,8 @@
             <div class="flex-grow">
                 
                 <!-- Menu Grid Header -->
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-800 tracking-wide">MENU LAYOUT 01</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-gray-800 tracking-wide">MENU LAYOUT </h2>
                     <div class="flex items-center space-x-2 text-gray-500">
                          <!-- Grid View Active -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -93,77 +78,169 @@
                         </svg>
                     </div>
                 </div>
-
+                  <div id="skeleton"></div>
                 <!-- Product Grid -->
-               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+               <div id="MenuItem"  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 
-  <!-- Product Card Template -->
-  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
-    <!-- Price Tag -->
-    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">
-      $23.75
-    </span>
-    <!-- Image -->
-    <img src="https://ohsweetbasil.com/wp-content/uploads/2015/04/pizza-burger-ohsweetbasil.com-2i.jpg" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
-    <!-- Title -->
-    <h3 class="text-lg font-bold text-gray-800 mb-1">Maxican Hot Pizza</h3>
-    <!-- Rating -->
-    <div class="star-rating text-sm mb-1">★★★★★</div>
-    <!-- Description -->
-    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
-      A small river named Duden flows by their place and supplies
-    </p>
-    <!-- Button -->
-    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
-      Add to Cart
-    </button>
-  </div>
+ 
 
-  <!-- Repeat for other products: Dhokla, Grilled Chicken Pizza, Hot Dog -->
-  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
-    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">$15.25</span>
-    <img src="https://www.eatthis.com/wp-content/uploads/sites/4/2019/07/pizza-burger.jpg" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
-    <h3 class="text-lg font-bold text-gray-800 mb-1">Dhokla</h3>
-    <div class="star-rating text-sm mb-1">★★★★★</div>
-    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
-      A small river named Duden flows by their place and supplies
-    </p>
-    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
-      Add to Cart
-    </button>
-  </div>
+ 
 
-  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
-    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">$29.00</span>
-    <img src="https://placehold.co/150x150/f0f0f0/333?text=GrillPizza" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
-    <h3 class="text-lg font-bold text-gray-800 mb-1">Grilled Chicken Pizza</h3>
-    <div class="star-rating text-sm mb-1">★★★★★</div>
-    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
-      A small river named Duden flows by their place and supplies
-    </p>
-    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
-      Add to Cart
-    </button>
-  </div>
 
-  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
-    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">$28.55</span>
-    <img src="https://placehold.co/150x150/f0f0f0/333?text=HotDog" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
-    <h3 class="text-lg font-bold text-gray-800 mb-1">Hot Dog</h3>
-    <div class="star-rating text-sm mb-1">★★★★★</div>
-    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
-      A small river named Duden flows by their place and supplies
-    </p>
-    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
-      Add to Cart
-    </button>
-  </div>
+ 
 
 </div>
 
             </div>
         </div>
-  
+  <script>
+ function handleCategoryItem(checkbox ,categoryId) {
+
+    
+     const Menubox = document.getElementById("MenuItem");
+     const skeleton = document.getElementById("skeleton");
+
+      if (!checkbox.checked) {
+        Menubox.innerHTML = "";
+        return;
+    }
+    Menubox.innerHTML = `<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
+
+  <!-- Price badge -->
+  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
+
+  <!-- Avatar -->
+  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
+
+  <!-- Title -->
+  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
+
+  <!-- stars -->
+  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
+
+  <!-- Description -->
+  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
+  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
+
+  <!-- Button -->
+  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
+
+</div>
+
+<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
+
+  <!-- Price badge -->
+  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
+
+  <!-- Avatar -->
+  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
+
+  <!-- Title -->
+  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
+
+  <!-- stars -->
+  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
+
+  <!-- Description -->
+  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
+  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
+
+  <!-- Button -->
+  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
+
+</div>
+<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
+
+  <!-- Price badge -->
+  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
+
+  <!-- Avatar -->
+  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
+
+  <!-- Title -->
+  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
+
+  <!-- stars -->
+  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
+
+  <!-- Description -->
+  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
+  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
+
+  <!-- Button -->
+  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
+
+</div>
+<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
+
+  <!-- Price badge -->
+  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
+
+  <!-- Avatar -->
+  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
+
+  <!-- Title -->
+  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
+
+  <!-- stars -->
+  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
+
+  <!-- Description -->
+  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
+  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
+
+  <!-- Button -->
+  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
+
+</div>
+
+
+`
+    
+   fetch(`/admin/menuItems/${categoryId}`, {
+    method: "GET",
+    headers: { "Accept": "application/json" },
+    credentials: "include"
+})
+
+    .then(res => res.json())
+    .then(res => {
+        console.log(res)
+        let MenuItems = "";
+        res.data.forEach(Menu => {
+            MenuItems += `
+  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
+    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">
+      ${Menu.price}
+    </span>
+    <img src="https://ohsweetbasil.com/wp-content/uploads/2015/04/pizza-burger-ohsweetbasil.com-2i.jpg" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
+    <h3 class="text-lg font-bold text-gray-800 mb-1"> ${Menu.item_name}</h3>
+    <div class="star-rating text-sm mb-1">★★★★★</div>
+    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
+     ${Menu.description}
+    </p>
+    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
+   View more
+    </button>
+  </div>
+            `;
+        });
+
+        Menubox.innerHTML = MenuItems || `
+<tr class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
+    <td colspan="5" class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
+        🍴 No Menu Item found 
+    </td>
+</tr>
+`;
+ 
+    })
+    .catch(err => {
+        console.error(err);
+        Menubox.innerHTML = "<pclass='text-center'>Failed to load Menu Item</p>";
+    });
+}
+</script>
 
 
 @endsection

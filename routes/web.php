@@ -34,7 +34,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         });
 
         //MENU ROUTES
-        Route::get('/menu', [MenuController::class, 'getAllMenu'])->name('menu.list');
+        Route::get('/menu', [MenuController::class, 'index'])->name('menu.list');
+        Route::get('/menuItems/{id}', [MenuController::class, 'getMenuItems']);
+
+
         // ADMIN Logout
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     });
