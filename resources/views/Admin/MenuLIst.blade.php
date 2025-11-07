@@ -45,15 +45,10 @@
     <div class="space-y-4">
         <div class="text-xs font-semibold uppercase text-gray-400 tracking-wider">Categories</div>
 
-      <div class="space-y-2">
-    @forelse ($categories as $category)
-        <label  class="flex items-center text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition duration-200 p-2 rounded-lg hover:bg-blue-50">
-            <input type="checkbox"  onchange="handleCategoryItem(this, '{{ $category->id }}')" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
-            <span class="ml-3">{{ $category->category_name }}</span>
-        </label>
-    @empty
-        <p class="text-xs text-gray-400 italic">No categories found</p>
-    @endforelse
+      <div id='category' class="space-y-2">
+        
+    
+
 </div>
 
     </div>
@@ -62,7 +57,7 @@
 
 
             <!-- Menu Grid (Right Column) -->
-            <div class="flex-grow">
+            <div id class="flex-grow">
                 
                 <!-- Menu Grid Header -->
                 <div class="flex justify-between items-center mb-4">
@@ -79,13 +74,10 @@
                     </div>
                 </div>
                   <div id="skeleton"></div>
+                  <div id="EmtyItem"></div>
+
                 <!-- Product Grid -->
                <div id="MenuItem"  class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-
- 
-
- 
-
 
  
 
@@ -94,152 +86,128 @@
             </div>
         </div>
   <script>
- function handleCategoryItem(checkbox ,categoryId) {
+    let menuCategory = [];
+   
+  async function loadMenuItem() {
 
-    
-     const Menubox = document.getElementById("MenuItem");
-     const skeleton = document.getElementById("skeleton");
+    try {
+    const response = await fetch(`/admin/menuCategory`);
+    const result = await response.json();
+    menuCategory = result.data; 
+       let categories = "";
 
-      if (!checkbox.checked) {
-        Menubox.innerHTML = "";
-        return;
-    }
-    Menubox.innerHTML = `<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
-
-  <!-- Price badge -->
-  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
-
-  <!-- Avatar -->
-  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
-
-  <!-- Title -->
-  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
-
-  <!-- stars -->
-  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
-
-  <!-- Description -->
-  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
-  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
-
-  <!-- Button -->
-  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
-
-</div>
-
-<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
-
-  <!-- Price badge -->
-  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
-
-  <!-- Avatar -->
-  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
-
-  <!-- Title -->
-  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
-
-  <!-- stars -->
-  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
-
-  <!-- Description -->
-  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
-  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
-
-  <!-- Button -->
-  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
-
-</div>
-<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
-
-  <!-- Price badge -->
-  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
-
-  <!-- Avatar -->
-  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
-
-  <!-- Title -->
-  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
-
-  <!-- stars -->
-  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
-
-  <!-- Description -->
-  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
-  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
-
-  <!-- Button -->
-  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
-
-</div>
-<div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative animate-pulse">
-
-  <!-- Price badge -->
-  <span class="absolute top-0 right-0 mt-2 mr-2 bg-gray-300 rounded-full w-10 h-5"></span>
-
-  <!-- Avatar -->
-  <div class="w-28 h-28 rounded-full mb-2 bg-gray-300"></div>
-
-  <!-- Title -->
-  <div class="w-24 h-4 bg-gray-300 rounded mb-2"></div>
-
-  <!-- stars -->
-  <div class="w-20 h-3 bg-gray-300 rounded mb-2"></div>
-
-  <!-- Description -->
-  <div class="w-32 h-3 bg-gray-300 rounded mb-1"></div>
-  <div class="w-28 h-3 bg-gray-300 rounded mb-3"></div>
-
-  <!-- Button -->
-  <div class="w-full h-8 bg-gray-300 rounded-lg"></div>
-
-</div>
-
-
-`
-    
-   fetch(`/admin/menuItems/${categoryId}`, {
-    method: "GET",
-    headers: { "Accept": "application/json" },
-    credentials: "include"
-})
-
-    .then(res => res.json())
-    .then(res => {
-        console.log(res)
-        let MenuItems = "";
-        res.data.forEach(Menu => {
-            MenuItems += `
-  <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
-    <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">
-      ${Menu.price}
-    </span>
-    <img src="https://ohsweetbasil.com/wp-content/uploads/2015/04/pizza-burger-ohsweetbasil.com-2i.jpg" class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
-    <h3 class="text-lg font-bold text-gray-800 mb-1"> ${Menu.item_name}</h3>
-    <div class="star-rating text-sm mb-1">★★★★★</div>
-    <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
-     ${Menu.description}
-    </p>
-    <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
-   View more
-    </button>
-  </div>
+        menuCategory.forEach(category => {
+            categories += `
+                <label class="flex items-center text-sm font-semibold text-blue-600 cursor-pointer hover:text-blue-700 transition duration-200 p-2 rounded-lg hover:bg-blue-50">
+                    <input type="checkbox" value="${category.id}"              onchange="handleMenuItem()" class="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500 text-blue-500">
+                    <span class="ml-3">${category.category_name}</span>
+                </label>
             `;
         });
 
-        Menubox.innerHTML = MenuItems || `
-<tr class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg">
-    <td colspan="5" class="px-4 py-3 text-center text-gray-500 dark:text-gray-400">
-        🍴 No Menu Item found 
-    </td>
-</tr>
-`;
- 
-    })
-    .catch(err => {
-        console.error(err);
-        Menubox.innerHTML = "<pclass='text-center'>Failed to load Menu Item</p>";
+        document.querySelector("#category").innerHTML = categories;
+        // show placeholder when no category is selected
+        const emtyMenu = document.querySelector("#EmtyItem");
+        emtyMenu.innerHTML = `
+         <div class="w-full flex flex-col items-center justify-center py-10 text-center opacity-70">
+            <div class="text-4xl mb-3">📂</div>
+            <p class="text-lg font-semibold text-gray-600">Please select a category</p>
+            <p class="text-sm text-gray-400 mt-1">Start by choosing at least one</p>
+        </div>`;
+        
+          
+    } catch (error) {
+      
+    }
+    
+    
+  }
+loadMenuItem();
+function handleMenuItem() {
+
+    let skeleton = document.querySelector("#skeleton");
+    let menuContainer = document.querySelector("#MenuItem");
+    // ensure emtyMenu exists in this scope (was previously declared only inside loadMenuItem)
+    const emtyMenu = document.querySelector("#EmtyItem");
+
+    let checkboxes = document.querySelectorAll("#category input:checked");
+    let checkedIds = [...checkboxes].map(i => i.value);
+
+    if (checkedIds.length === 0) {
+                // no categories selected -> clear items and show placeholder
+                skeleton.innerHTML = "";
+                menuContainer.innerHTML = "";
+                emtyMenu.innerHTML = `
+                <div class="w-full flex flex-col items-center justify-center py-10 text-center opacity-70">
+                    <div class="text-4xl mb-3">📂</div>
+                    <p class="text-lg font-semibold text-gray-600">Please select a category</p>
+                    <p class="text-sm text-gray-400 mt-1">Start by choosing at least one</p>
+                </div>`;
+
+                return;
+    }
+
+    let items = [];
+
+    checkedIds.forEach(id => {
+        let category = menuCategory.find(c => c.id == id);
+        if (category && category.items?.length) {
+            items.push(...category.items);
+        }
     });
+
+    if (items.length === 0) {
+        menuContainer.innerHTML = "";
+        skeleton.innerHTML = `
+        <div class="w-full flex flex-col items-center justify-center py-10 text-center opacity-70">
+            <div class="text-4xl mb-3">🍴</div>
+            <p class="text-lg font-semibold text-gray-600">No menu items found</p>
+            <p class="text-sm text-gray-400 mt-1">Try selecting another category</p>
+        </div>
+        `;
+        // ensure placeholder cleared when no items found for selected category
+        emtyMenu.innerHTML = "";
+        return;
+    }
+
+    skeleton.innerHTML = "";
+
+    // we've got items -> hide placeholder
+    emtyMenu.innerHTML = "";
+
+    let html = "";
+    items.forEach(Menu => {
+        html += `
+        <div class="bg-white p-3 border border-gray-100 rounded-xl flex flex-col items-center relative hover:shadow-xl transition duration-300">
+            <span class="absolute top-0 right-0 mt-2 mr-2 bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md z-10">
+                ${Menu.price ?? "—"}
+            </span>
+
+            <img src="/storage/${Menu.image_url}"
+                class="w-28 h-28 object-cover rounded-full mb-2 border-4 border-white shadow-md">
+
+            <h3 class="text-lg font-bold text-gray-800 mb-1">${Menu.item_name}</h3>
+            
+            <div class="star-rating text-sm mb-1">★★★★★</div>
+
+            <p class="text-center text-xs text-gray-500 mb-2 h-8 overflow-hidden line-clamp-2 px-1">
+                ${Menu.description ?? ""}
+            </p>
+
+            <button class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md">
+                View more
+            </button>
+        </div>
+        `;
+    });
+
+    menuContainer.innerHTML = html;
 }
+
+
+
+    
+
 </script>
 
 

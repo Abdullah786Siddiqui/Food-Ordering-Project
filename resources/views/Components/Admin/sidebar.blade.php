@@ -89,7 +89,7 @@
          </li>
 
           
-<div class="mt-32">
+<div class="mt-24">
        <hr class=" border-gray-300 mx-2 my-2 dark:border-gray-600">
  <li>
             <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group">

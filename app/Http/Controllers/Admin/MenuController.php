@@ -11,26 +11,15 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $categories = MenuCategory::all();
-        return view('Admin.MenuLIst', compact('categories'));
+        return view('Admin.MenuLIst');
     }
 
-    public function getMenuItems($id)
+    public function getMenuItems()
     {
-         $menuItem = MenuItem::with('category')
-        ->where('menu_categories_id', $id)
-        ->get();
-
-        if (!$menuItem) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Menu item not found'
-            ], 404);
-        }
-
+        $menuCategories = MenuCategory::with('items')->get();
         return response()->json([
-            'success' => true,
-            'data' => $menuItem
-        ], 200);
+            'status' => true,
+            'data' => $menuCategories
+        ]);
     }
 }

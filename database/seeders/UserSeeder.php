@@ -123,19 +123,19 @@ class UserSeeder extends Seeder
         //     'longitude' => '67.0640000'
         // ]);
 
-        // $menuCategory =  MenuCategory::create([
-        //     'category_name' => 'Biryani'
-        // ]);
-
-        $menuItem = MenuItem::create([
-            'restaurant_id' => 1,
-            'menu_categories_id' => 1,
-            'item_name' => 'Beef Biryani',
-            'description' => 'Spicy Beef biryani with raita',
-            'image_url' => 'menu/chicken_biryani.jpg',
-            'price' => 450.00,
-            'rating' => 4.7,
+        $menuCategory =  MenuCategory::create([
+            'category_name' => 'Pizza'
         ]);
+
+        // $menuItem = MenuItem::create([
+        //     'restaurant_id' => 1,
+        //     'menu_categories_id' => $menuCategory->id,
+        //     'item_name' => 'Beef Karahi',
+        //     'description' => 'Spicy Beef Karahi with raita',
+        //     'image_url' => 'menu/chicken_biryani.jpg',
+        //     'price' => 450.00,
+        //     'rating' => 4.7,
+        // ]);
 
         // $order = Order::create([
         //     'user_id' => $user->id,

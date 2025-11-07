@@ -290,7 +290,7 @@ tbody.innerHTML = `
 
                     <td class="px-4 py-3 text-right">
                         <div class="flex gap-1 max-sm:gap-2 max-sm:flex-col items-start">
-                            <a href="/admin/restaurant/${branch.restaurant_id}/location/${branch.id}/edit"  class="flex items-center px-2 max-sm:px-4 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
+                            <a href="/admin/restaurants/${branch.restaurant_id}/location/${branch.id}/edit"  class="flex items-center px-2 max-sm:px-4 py-1 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold">
                                 <i class="ri-edit-line mr-1"></i> Edit
                             </a>
                             <button command="show-modal" commandfor="dialog1"

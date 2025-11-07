@@ -35,7 +35,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         //MENU ROUTES
         Route::get('/menu', [MenuController::class, 'index'])->name('menu.list');
-        Route::get('/menuItems/{id}', [MenuController::class, 'getMenuItems']);
+        Route::get('/menuCategory', [MenuController::class, 'getMenuItems']);
 
 
         // ADMIN Logout
