@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\User\AuthController as UserAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\DeliveryController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Delivery_partner\AuthController as DeliveryAuthController;
 use App\Http\Controllers\Delivery_partner\delivery_partnerController;
@@ -36,6 +37,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         //MENU ROUTES
         Route::get('/menu', [MenuController::class, 'index'])->name('menu.list');
         Route::get('/menuCategory', [MenuController::class, 'getMenuItems']);
+        Route::post('/addCategory',[MenuController::class, 'addCategory'])->name('category.add');
+        Route::post('/deleteCategory/{id}',[MenuController::class, 'deleteCategory'])->name('category.delete');
+
+        //Delivery Partners
+        Route::resource('/delivery', DeliveryController::class);
+
+
 
 
         // ADMIN Logout

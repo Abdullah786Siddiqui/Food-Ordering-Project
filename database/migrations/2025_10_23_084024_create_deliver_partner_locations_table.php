@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('deliver_partner_locations', function (Blueprint $table) {
             $table->id();
+              $table->foreignId('delivery_partner_id')
+                  ->constrained('delivery_partners')   // table name
+                  ->onDelete('cascade');
              $table->foreignId('city_id')->nullable() ->constrained() ->onDelete('set null');
             $table->foreignId('province_id') ->nullable() ->constrained()->onDelete('set null');
             $table->text('address')->nullable();

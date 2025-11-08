@@ -65,12 +65,12 @@ class UserSeeder extends Seeder
         //     'is_current' => true,
         // ]);
 
-        // Admin::create([
-        //     'name' => 'admin',
-        //     'email' => 'admin@gmail.com',
-        //     'profile_image' => 'admins/admin1.jpg',
-        //     'password' => Hash::make('123'),
-        // ]);
+        Admin::create([
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'profile_image' => 'admins/admin1.jpg',
+            'password' => Hash::make('123'),
+        ]);
 
         // $restaurant = Restaurant::create([
         //     'name' => 'Kababjees',
@@ -115,6 +115,7 @@ class UserSeeder extends Seeder
         // ]);
 
         // DeliverPartnerLocation::create([
+        //     'delivery_partner_id'=> 1,
         //     'city_id' => 1,
         //     'province_id' => 1,
         //     'address' => 'noth karachi sector 5-D plot-208',
@@ -123,9 +124,9 @@ class UserSeeder extends Seeder
         //     'longitude' => '67.0640000'
         // ]);
 
-        $menuCategory =  MenuCategory::create([
-            'category_name' => 'Pizza'
-        ]);
+        // $menuCategory =  MenuCategory::create([
+        //     'category_name' => 'Pizza'
+        // ]);
 
         // $menuItem = MenuItem::create([
         //     'restaurant_id' => 1,
