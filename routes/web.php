@@ -11,6 +11,7 @@ use App\Http\Controllers\Delivery_partner\delivery_partnerController;
 use App\Http\Controllers\Restaurant\AuthController as RestaurantAuthController;
 use App\Http\Controllers\Restaurant\RestaurentController;
 use App\Http\Controllers\Admin\RestaurantController as RestaurantAdminController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 // ===== ADMIN =====
@@ -45,6 +46,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/delivery', DeliveryController::class);
         //Order Management
         Route::resource('/order', OrderController::class);
+        //User Management
+        Route::resource('/user', UserController::class);
+
 
 
 

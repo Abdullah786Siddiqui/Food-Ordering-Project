@@ -5,37 +5,51 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-   public function index()
-{
-    // Paginated orders for display
-    $orders = Order::with('items','address','payment','user','restaurant')->paginate(20);
+    public function index()
+    {
+        // Paginated orders for display
+        $orders = Order::with('items', 'address', 'payment', 'user', 'restaurant')->paginate(20);
 
-    // Total orders count (without pagination)
-    $totalOrders = Order::count();
+        // Aggregated stats
+        $totalOrders = Order::count();
+        $ordersToday = Order::whereDate('created_at', Carbon::today())->count();
+        $ordersThisMonth = Order::whereMonth('created_at', Carbon::now()->month)->whereYear('created_at', Carbon::now()->year)->count();
 
-    // Total completed orders count
-    $completedOrders = Order::where('status', 'delivered')->count();
+        $pendingOrders = Order::where('status', 'pending')->count();
+        $deliveredOrders = Order::where('status', 'delivered')->count();
+        $cancelledOrders = Order::where('status', 'cancelled')->count();
 
-    // Total pending orders
-    $pendingOrders = Order::where('status', 'Pending')->count();
+        // Revenue: delivered orders sum
+        $totalRevenue = (float) Order::where('status', 'delivered')->sum('total_amount');
+        $revenueThisMonth = (float) Order::where('status', 'delivered')
+            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->sum('total_amount');
 
-    // Total cancelled orders
-    $cancelledOrders = Order::where('status', 'cancelled')->count();
+        // $avgOrderValue = (float) Order::avg('total_amount') ?? 0;
 
-    return view('Admin.orders', compact(
-        'orders', 
-        'totalOrders', 
-        'completedOrders', 
-        'pendingOrders', 
-        'cancelledOrders'
-    ));
-}
+        // $ordersByStatus = Order::select('status', DB::raw('count(*) as total'))->groupBy('status')->pluck('total', 'status');
+
+        return view('Admin.orders', compact(
+            'orders',
+            'totalOrders',
+            'ordersToday',
+            'ordersThisMonth',
+            'pendingOrders',
+            'deliveredOrders',
+            'cancelledOrders',
+            'totalRevenue',
+            'revenueThisMonth',
+        ));
+    }
 
 
     /**

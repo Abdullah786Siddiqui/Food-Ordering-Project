@@ -49,6 +49,7 @@ class Starter extends Seeder
             'full_name' => 'user',
             'email' => 'user@gmail.com',
             'phone_number' => '03160116389',
+            'gender'=>'male',
             'profile_image' => 'users/user1.jpg',
             'status' => 'inactive',
             'password' => Hash::make('123')

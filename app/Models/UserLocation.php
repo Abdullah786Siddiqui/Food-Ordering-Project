@@ -34,6 +34,9 @@ class UserLocation extends Model
         return $query->where('is_primary', true);
     }
 
+   
+
+
     /**
      * Scope: Only current live location only one row create and then update to every new real time location
      */
