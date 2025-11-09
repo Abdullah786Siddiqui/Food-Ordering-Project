@@ -21,7 +21,9 @@ class DeliveryPartner extends Authenticatable
         'total_deliveries',
         'profile_image',
         'vehical',
-        'status'
+        'status',
+        'rating',
+        'gender'
     ];
 
     public function location()

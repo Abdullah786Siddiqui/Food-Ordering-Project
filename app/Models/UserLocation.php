@@ -9,14 +9,14 @@ class UserLocation extends Model
     protected $fillable = [
         'user_id',
         'address',
-        'city',
+        'city_id',
         'country',
         'latitude',
         'longitude',
         'is_primary',
         'is_current',
     ];
-
+     
 
     /**
      * Relationship: Location belongs to a specific User.

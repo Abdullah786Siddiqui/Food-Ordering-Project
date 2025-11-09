@@ -29,7 +29,7 @@
 
             
             
-          <div class="bg-white shadow-lg rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10 ">
+          <div class="bg-white shadow-lg rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10 mb-4 ">
     <h2 class="text-2xl font-bold text-indigo-600 mb-8 flex items-center">
         <span class="mr-3 text-3xl">🔑</span> Core Restaurant Details
     </h2>
@@ -153,7 +153,7 @@
 
             {{-- <pre>{{ print_r($restaurant, true) }}</pre> --}}
 
-          <div class="bg-white shadow-2xl rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10">
+          <div class="bg-white shadow-2xl rounded-2xl border border-gray-100 p-8 max-sm:p-2 lg:p-10 mb-4">
   <h2 class="text-2xl font-bold text-indigo-600 mb-8 flex items-center">
     <span class="mr-3 text-3xl">🗺️</span> Location & Mapping
   </h2>

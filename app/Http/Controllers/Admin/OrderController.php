@@ -3,19 +3,40 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\DeliveryPartner;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class DeliveryController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $deliverypartners = DeliveryPartner::with('location')->get();
-        return view('Admin.delivery_partner', compact('deliverypartners'));
-    }
+   public function index()
+{
+    // Paginated orders for display
+    $orders = Order::with('items','address','payment','user','restaurant')->paginate(20);
+
+    // Total orders count (without pagination)
+    $totalOrders = Order::count();
+
+    // Total completed orders count
+    $completedOrders = Order::where('status', 'delivered')->count();
+
+    // Total pending orders
+    $pendingOrders = Order::where('status', 'Pending')->count();
+
+    // Total cancelled orders
+    $cancelledOrders = Order::where('status', 'cancelled')->count();
+
+    return view('Admin.orders', compact(
+        'orders', 
+        'totalOrders', 
+        'completedOrders', 
+        'pendingOrders', 
+        'cancelledOrders'
+    ));
+}
+
 
     /**
      * Show the form for creating a new resource.

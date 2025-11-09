@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('locality')->nullable();
             $table->string('branch_email')->unique();
             $table->string('branch_phone_number', 20)->nullable();
+            $table->boolean('is_main')->default(false);
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamps();

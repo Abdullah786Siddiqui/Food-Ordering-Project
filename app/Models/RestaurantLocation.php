@@ -18,6 +18,7 @@ class RestaurantLocation extends Model
         'is_main',
         'longitude',
     ];
+    
 
     public function restaurant()
     {

@@ -20,6 +20,11 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->enum('vehical', ['bike', 'cycle'])->default('bike');
             $table->enum('status', ['inactive', 'active', 'blocked'])->default('inactive');
+               $table->decimal('rating', 2, 1)
+              ->default(0.0);
+              
+        $table->enum('gender', ['male', 'female', 'other'])
+              ->nullable();
              $table->integer('total_deliveries')->default(0);
              $table->string('profile_image')->nullable();
             $table->string('password');

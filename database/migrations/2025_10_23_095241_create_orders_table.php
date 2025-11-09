@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('delivery_partner_id')->nullable()->constrained('delivery_partners')->onDelete('set null');
             $table->foreignId('restaurant_id')->constrained('restaurants')->onDelete('cascade');
-            $table->float('total_amount');
+            $table->decimal('total_amount', 10, 2);
             $table->enum('payment_mode', ['cod', 'credit_card'])->default('cod');
-            $table->enum('status', ['placed', 'accepted', 'prepared', 'picked', 'delivered'])
-                ->default('placed');
+            $table->enum('status', ['pending', 'accepted', 'prepared', 'picked', 'delivered', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['paid', 'not_paid'])->default('not_paid');
             $table->timestamps();
         });

@@ -27,3 +27,4 @@ class MenuItem extends Model
         return $this->belongsTo(Restaurant::class, 'restaurant_id');
     }
 }
+
