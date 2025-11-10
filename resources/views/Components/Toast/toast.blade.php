@@ -12,7 +12,7 @@
 </style>
 
 @if(session('success'))
-<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl dark:bg-neutral-800 dark:border-neutral-700 toast-animate" role="alert">
+<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl :bg-neutral-800 :border-neutral-700 toast-animate" role="alert">
     <div class="flex items-center p-3 space-x-3">
         <div class="shrink-0">
             <svg class="w-5 h-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -20,7 +20,7 @@
             </svg>
         </div>
         <div>
-            <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+            <p class="text-sm font-medium text-gray-800 whitespace-nowrap">
                 {{ session('success') }}
             </p>
         </div>
@@ -30,7 +30,7 @@
 
 
 @if(session('error'))
-<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl dark:bg-neutral-800 dark:border-neutral-700 toast-animate" role="alert">
+<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl :bg-neutral-800 :border-neutral-700 toast-animate" role="alert">
     <div class="flex items-center p-3 space-x-3">
         <div class="shrink-0">
             <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -38,7 +38,7 @@
             </svg>
         </div>
         <div>
-            <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+            <p class="text-sm font-medium text-gray-800 :text-neutral-200 whitespace-nowrap">
                 {{ session('error') }}
             </p>
         </div>
@@ -47,7 +47,7 @@
 @endif
 
 @if($errors->any() && !session('error'))
-<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl dark:bg-neutral-800 dark:border-neutral-700 toast-animate" role="alert">
+<div class="fixed top-3 left-1/2 z-[9999] max-w-xs bg-white border border-gray-200 rounded-xl shadow-xl :bg-neutral-800 :border-neutral-700 toast-animate" role="alert">
     <div class="flex items-center p-3 space-x-3">
         <div class="shrink-0">
             <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -55,7 +55,7 @@
             </svg>
         </div>
         <div>
-            <p class="text-sm font-medium text-gray-800 dark:text-neutral-200">
+            <p class="text-sm font-medium text-gray-800 :text-neutral-200">
                 {{ $errors->first() }}
             </p>
         </div>

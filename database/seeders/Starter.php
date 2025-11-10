@@ -75,6 +75,7 @@ class Starter extends Seeder
 
         $restaurant = Restaurant::create([
             'name' => 'Kababjees',
+            'email' =>'Kababjees@gmail.com',
             'image' => 'restaurants/restaurant1.png',
             'status' => 'inactive',
             'rating' => 4.9,

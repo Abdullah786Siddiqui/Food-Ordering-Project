@@ -20,10 +20,19 @@ class RestaurantController extends Controller
             'locations' => function ($query) {
                 $query->where('is_main', 1)->with('timing');
             }
-        ])->get();
+        ])->paginate(20);
+        $totalRestaurant  = Restaurant::count();
+        $activeRestaurant = Restaurant::where('status', 'active')->count();
+        $InactiveRestaurant = Restaurant::where('status', 'inactive')->count();
 
 
-        return view('Admin.restaurantList', compact('restaurants'));
+        return view('Admin.restaurantList', compact(
+            'restaurants',
+            'totalRestaurant',
+            'activeRestaurant',
+            'InactiveRestaurant'
+
+        ));
     }
 
     /**

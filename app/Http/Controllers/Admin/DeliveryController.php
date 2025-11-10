@@ -13,8 +13,17 @@ class DeliveryController extends Controller
      */
     public function index()
     {
-        $deliverypartners = DeliveryPartner::with('location')->get();
-        return view('Admin.delivery_partner', compact('deliverypartners'));
+        $deliverypartners = DeliveryPartner::with('location')->paginate(20);
+        $totaldeliverypartner  = DeliveryPartner::count();
+        $activedeliverypartner = DeliveryPartner::where('status', 'active')->count();
+        $Inactivedeliverypartner = DeliveryPartner::where('status', 'inactive')->count();
+
+        return view('Admin.delivery_partner', compact(
+            'deliverypartners',
+            'totaldeliverypartner',
+            'activedeliverypartner',
+            'Inactivedeliverypartner'
+        ));
     }
 
     /**

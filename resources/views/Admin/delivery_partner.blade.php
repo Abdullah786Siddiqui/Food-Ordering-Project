@@ -12,7 +12,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m4 0h1v4h1m-6 4h6" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $deliverypartners->count() }}</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $totaldeliverypartner }}</h2>
         <p class="text-xs text-gray-500 mt-1">128 need attention</p>
       </div>
 
@@ -24,7 +24,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{  $deliverypartners->where('status', 'active')->count() }}</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{  $activedeliverypartner }}</h2>
         <p class="text-xs text-gray-500 mt-1">+150 this month</p>
       </div>
 
@@ -36,15 +36,16 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $deliverypartners->where('status', 'inactive')->count() }}</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $Inactivedeliverypartner  }}</h2>
         <p class="text-xs text-gray-500 mt-1">+45 today</p>
       </div>
 
     </div>
 
+    <div class="overflow-x-auto rounded-lg border border-gray-200">
     
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:text-gray-400 border-0">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 :text-gray-400 border">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 :text-gray-400 border-0">
     <tr class="border-0">
         <th scope="col" class="px-4 py-3 border-0">
             <div class="flex items-center justify-center">
@@ -77,31 +78,31 @@
 </thead>
 <tbody>
 @forelse ($deliverypartners as $deliverypartner )
-      <tr class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200">
+      <tr class="bg-white :bg-gray-800 border border-gray-200 :border-gray-700 rounded-lg hover:bg-gray-50 :hover:bg-gray-700 transition-all duration-200">
             
             <!-- Checkbox -->
             <td class="px-4 py-3">
                 <div class="flex items-center justify-center">
                     <input type="checkbox" 
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600">
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 :focus:ring-blue-600 :bg-gray-700 :border-gray-600">
                     <label class="sr-only">Select row</label>
                 </div>
             </td>
 
             <th scope="row" class="px-6 py-3">
                 <div class="flex items-center space-x-3">
-                    <img class="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600" 
+                    <img class="w-10 h-10 rounded-full object-cover border border-gray-300 :border-gray-600" 
                          src="{{ asset('storage/' . $deliverypartner->profile_image) }}" 
                          alt="Partner image">
                     <div class="flex flex-col">
-                        <div class="text-sm font-semibold text-gray-900 dark:text-white">{{ $deliverypartner->name }}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ $deliverypartner->email ?? '' }}</div>
+                        <div class="text-sm font-semibold text-gray-900 :text-white">{{ $deliverypartner->name }}</div>
+                        <div class="text-xs text-gray-500 :text-gray-400">{{ $deliverypartner->email ?? '' }}</div>
                     </div>
                 </div>
             </th>
 
             <!-- Phone -->
-            <td class="px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+            <td class="px-6 py-3 text-sm font-medium text-gray-700 :text-gray-300">
                 {{$deliverypartner->phone_number ?? 'N/A' }}
             </td>
 
@@ -119,27 +120,27 @@
             </td>
 
             <!-- Vehicle -->
-            <td class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">
+            <td class="px-6 py-3 text-sm text-gray-600 :text-gray-300">
                 {{ $deliverypartner->vehical ?? '' }}
             </td>
 
             <!-- Rating -->
-            <td class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">
+            <td class="px-6 py-3 text-sm text-gray-600 :text-gray-300">
                 {{ $deliverypartner->rating ?? '' }}
             </td>
 
             <!-- Gender -->
-            <td class="px-6 py-3 text-sm text-gray-600 dark:text-gray-300">
+            <td class="px-6 py-3 text-sm text-gray-600 :text-gray-300">
                 {{ $deliverypartner->gender ?? '' }}
             </td>
 
             <!-- Actions -->
             <td class="px-6 py-3">
                 <div class="flex items-center space-x-2">
-                    <a href="#" class="inline-flex items-center px-3 py-1.5 bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200 rounded hover:bg-blue-200 dark:hover:bg-blue-600 text-xs font-semibold transition-colors duration-200">
+                    <a href="#" class="inline-flex items-center px-3 py-1.5 bg-blue-100 :bg-blue-700 text-blue-800 :text-blue-200 rounded hover:bg-blue-200 :hover:bg-blue-600 text-xs font-semibold transition-colors duration-200">
                         <i class="ri-edit-line mr-1.5"></i> Edit
                     </a>
-                    <button command="show-modal" commandfor="dialog1" class="inline-flex items-center px-3 py-1.5 bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200 rounded hover:bg-red-200 dark:hover:bg-red-600 text-xs font-semibold cursor-pointer transition-colors duration-200">
+                    <button command="show-modal" commandfor="dialog1" class="inline-flex items-center px-3 py-1.5 bg-red-100 :bg-red-700 text-red-800 :text-red-200 rounded hover:bg-red-200 :hover:bg-red-600 text-xs font-semibold cursor-pointer transition-colors duration-200">
                         <i class="ri-delete-bin-6-line mr-1.5"></i> Delete
                     </button>
                    
@@ -152,9 +153,9 @@
 
 @empty
   <tr>
-    <td colspan="6" class="text-center py-4 text-gray-500 dark:text-gray-400">No Delivery Partner found.</td>
+    <td colspan="6" class="text-center py-4 text-gray-500 :text-gray-400">No Delivery Partner found.</td>
 </tr>
 @endforelse
     </table>
-
+    </div>
 @endsection
