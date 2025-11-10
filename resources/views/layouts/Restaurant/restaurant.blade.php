@@ -30,7 +30,7 @@
      {{-- Sidebar --}}
 @include('Components.Restaurant.sidebar')
         <!-- Content -->
-        <main class="sm:ml-60 p-8 mt-12 dark:bg-gray-800   h-[calc(100vh-4rem)] overflow-y-auto " >
+        <main class="sm:ml-60 px-8 max-sm:px-4 py-8 mt-12">
             @yield('restaurant')
         </main>
 

@@ -18,7 +18,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">3,500</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $totalOrder }}</h2>
         <p class="text-xs text-gray-500 mt-1">+150 this month</p>
       </div>
 
@@ -30,7 +30,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m4 0h1v4h1m-6 4h6" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">470</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $totalMenu }}</h2>
         <p class="text-xs text-gray-500 mt-1">128 need attention</p>
       </div>
 
@@ -42,7 +42,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
           </svg>
         </div>
-        <h2 class="mt-3 text-3xl font-bold text-gray-900">2,350</h2>
+        <h2 class="mt-3 text-3xl font-bold text-gray-900">{{ $totalEarning }}</h2>
         <p class="text-xs text-gray-500 mt-1">+45 today</p>
       </div>
 

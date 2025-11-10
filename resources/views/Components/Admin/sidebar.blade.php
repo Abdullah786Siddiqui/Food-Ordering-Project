@@ -34,31 +34,13 @@
         </a>
       </li>
 
-      <!-- Dropdown menu -->
-      <li class="relative">
-        <input type="checkbox" id="menu-dropdown" class="peer hidden">
-        <label for="menu-dropdown" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-50 cursor-pointer select-none">
-          <i class="ri-restaurant-2-line text-lg"></i>
-          <span class="ml-2 flex-1 text-left">Menu</span>
-          <svg class="w-4 h-4 ml-auto transition-transform duration-200 peer-checked:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-          </svg>
-        </label>
 
-        <ul class="space-y-2 pl-8 max-h-0 overflow-hidden transition-all duration-300 peer-checked:max-h-40">
-          <li>
-            <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-blue-50">
-              <i class="ri-add-line text-xl mr-2"></i> Add Menu
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('admin.menu.list') }}" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-blue-50">
-              <i class="ri-list-check text-lg mr-2"></i> Menu List
-            </a>
-          </li>
-        </ul>
+        <a href="{{ route('admin.menu.list') }}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-50 group">
+                    <i class="ri-restaurant-2-line "></i>
+
+          <span class="ml-2">Menu</span>
+        </a>
       </li>
-
       <li>
         <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-blue-50 group">
           <i class="ri-coupon-line"></i>

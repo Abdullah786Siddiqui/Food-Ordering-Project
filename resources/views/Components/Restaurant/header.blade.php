@@ -2,15 +2,15 @@
   <div class="flex items-center justify-between px-2 py-3 lg:px-6">
     
     <!-- Left: Sidebar toggle + Logo -->
-    <div class="flex items-center gap-1">
+ <div class="flex items-center gap-2">
       <!-- Sidebar toggle -->
       <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" 
         aria-controls="logo-sidebar" type="button"
         class="inline-flex items-center p-2 text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 
-        focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 
-        dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        focus:outline-none focus:ring-2 focus:ring-gray-100 :text-gray-400 
+        :hover:bg-gray-700 :focus:ring-gray-600">
         <span class="sr-only">Open sidebar</span>
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-6 h-6 cursor-pointer" fill="currentColor" viewBox="0 0 20 20">
           <path clip-rule="evenodd" fill-rule="evenodd"
             d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 
              010 1.5H2.75A.75.75 0 012 4.75zm0 
@@ -23,8 +23,8 @@
       </button>
 
      <!-- Logo -->
-<a href="{{ route('restaurant.dashboard') }}" class="flex items-center text-2xl font-bold tracking-tight text-gray-800 dark:text-white  transition-colors">
- Restaurant <span class="text-red-600 dark:text-red-400 ml-1">Panel</span>
+<a href="{{ route('admin.dashboard') }}" class="flex items-center text-2xl font-bold tracking-tight text-gray-800  transition-colors ">
+ Restaurant <span class="text-red-600  ml-1">Panel</span>
 </a>
 
     </div>
