@@ -36,7 +36,7 @@
          px-4 py-2 text-sm md:text-base lg:text-lg
          hover:shadow-lg transition-shadow duration-200
          md:px-5 md:py-2 lg:px-6 lg:py-2 lg:mt-1
-         bg-white border border-gray-200 hover:border-pink-500 cursor-pointer">
+         bg-white border border-gray-200 hover:border-orange-500 cursor-pointer">
   My Account
   <svg 
     viewBox="0 0 20 20" fill="currentColor"
@@ -61,27 +61,27 @@
     <!-- Dashboard -->
     <a href="#"
       class="flex items-center px-4 py-2.5 text-sm text-gray-700 rounded-lg
-             hover:bg-gradient-to-r hover:from-pink-50 hover:to-pink-100
-             hover:text-pink-600 transition-all duration-150">
-      <i class="ri-dashboard-line mr-3 text-pink-500 text-lg"></i>
+             hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100
+             hover:text-orange-600 transition-all duration-150">
+      <i class="ri-dashboard-line mr-3 text-orange-500 text-lg"></i>
       Dashboard
     </a>
 
     <!-- Profile -->
     <a href="#"
       class="flex items-center px-4 py-2.5 text-sm text-gray-700 rounded-lg
-             hover:bg-gradient-to-r hover:from-pink-50 hover:to-pink-100
-             hover:text-pink-600 transition-all duration-150">
-      <i class="ri-user-3-line mr-3 text-pink-500 text-lg"></i>
+             hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100
+             hover:text-orange-600 transition-all duration-150">
+      <i class="ri-user-3-line mr-3 text-orange-500 text-lg"></i>
       Profile
     </a>
 
     <!-- Settings -->
     <a href="#"
       class="flex items-center px-4 py-2.5 text-sm text-gray-700 rounded-lg
-             hover:bg-gradient-to-r hover:from-pink-50 hover:to-pink-100
-             hover:text-pink-600 transition-all duration-150">
-      <i class="ri-settings-3-line mr-3 text-pink-500 text-lg"></i>
+             hover:bg-gradient-to-r hover:from-orange-50 hover:to-orange-100
+             hover:text-orange-600 transition-all duration-150">
+      <i class="ri-settings-3-line mr-3 text-orange-500 text-lg"></i>
       Settings
     </a>
 
@@ -105,7 +105,7 @@
 </el-dropdown>
 
   <!-- Favorites Icon -->
-  <button class="text-gray-600 hover:text-pink-500 transition ml-1 duration-150 text-3xl">
+  <button class="text-gray-600 hover:text-orange-500 transition ml-1 duration-150 text-3xl">
     <i class="ri-heart-line"></i>
   </button>
 </div>
@@ -123,7 +123,7 @@
                 <a href="{{ route('user.login') }}" class="border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 inline-block text-center font-medium text-gray-700">
                     Log in
                 </a>
-                <a href="{{ route('user.register') }}" class="bg-pink-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-pink-700 inline-block text-center font-semibold">
+                <a href="{{ route('user.register') }}" class="bg-orange-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-orange-700 inline-block text-center font-semibold">
                     Sign up for free delivery
                 </a>
             @endauth
@@ -135,7 +135,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-width="1.5" d="M3 3h2l3 12h10l3-8H6" />
             </svg>
-            <span class="absolute -top-2 -right-2 bg-pink-600 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">5</span>
+            <span class="absolute -top-2 -right-2 bg-orange-600 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">5</span>
         </div>
     @else
         <!-- Guest: Dimmed and Disabled -->
@@ -194,7 +194,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-width="1.5" d="M3 3h2l3 12h10l3-8H6" />
             </svg>
-            <span class="absolute -top-2 -right-2 bg-pink-600 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">5</span>
+            <span class="absolute -top-2 -right-2 bg-orange-600 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">5</span>
         </div>
     @else
         <!-- Guest: Dimmed and Disabled -->
@@ -215,54 +215,58 @@
 </div>
 
         </div>
-<div class="flex items-center space-x-5 bg-white rounded-2xl p-2 mt-2 border border-gray-200 cursor-pointer md:p-2 md:space-x-6">
-  <i class="ri-map-pin-line text-blue-600 text-3xl md:text-4xl flex-shrink-0 animate-bounce-slow"></i>
-  <div>
-    <span class="block text-gray-900 font-semibold text-base md:text-xl">New Address Service Road </span>
-    <span class="block text-gray-500 text-sm md:text-base">Islamabad, Pakistan</span>
+<div class="flex justify-center mt-2">
+  <div class="flex items-center justify-center space-x-5 bg-white p-2 cursor-pointer md:p-2 md:space-x-6">
+    <i class="ri-map-pin-line text-blue-600 text-3xl md:text-4xl flex-shrink-0 animate-bounce-slow"></i>
+    <div>
+      <span class="block text-gray-900 font-semibold text-base md:text-xl">New Address Service Road</span>
+      <span class="block text-gray-500 text-sm md:text-base">Islamabad, Pakistan</span>
+    </div>
   </div>
 </div>
+
 
 
     </div>
 
 </nav>
 
-<nav class="bg-white w-full border-b border-gray-200">
- <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-  <div class="flex gap-16 py-3 overflow-x-auto scrollbar-hide">
+<nav class="bg-white w-full border-b border-gray-200 md:mt-2">
+ <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 scrollbar-hide">
+  <div class="flex gap-16  overflow-x-auto ">
 
-    <!-- Delivery -->
-    <a href="#" class="flex flex-col items-center text-gray-500 hover:text-pink-600 transition duration-150 flex-shrink-0">
-      <i class="ri-motorbike-line text-2xl mb-1"></i>
-      <span class="text-sm font-medium">Delivery</span>
-    </a>
+   <!-- Delivery -->
+<a href="#" class="flex gap-2 items-center border-b-4 border-orange-600 text-orange-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+  <i class="ri-e-bike-2-line text-2xl mb-1"></i>
+  <span class="text-sm font-medium">Delivery</span>
+</a>
 
-    <!-- Pick-up (Active) -->
-    
-    <a href="#" class="flex flex-col items-center text-gray-500 hover:text-pink-600 transition duration-150 flex-shrink-0">
-            <i class="ri-walk-line text-2xl mb-1"></i>
+<!-- Pick-up (Active) -->
 
-      <span class="text-sm font-medium">Pick up</span>
-    </a>
+<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+    <i class="ri-walk-line text-2xl mb-1"></i>
 
-    <!-- Pandamart -->
-    <a href="#" class="flex flex-col items-center text-gray-500 hover:text-pink-600 transition duration-150 flex-shrink-0">
-      <i class="ri-shopping-bag-line text-2xl mb-1"></i>
-      <span class="text-sm font-medium">Pandamart</span>
-    </a>
+  <span class="text-sm font-medium">Pick up</span>
+</a>
 
-    <!-- Shops -->
-    <a href="#" class="flex flex-col items-center text-gray-500 hover:text-pink-600 transition duration-150 flex-shrink-0">
-      <i class="ri-store-2-line text-2xl mb-1"></i>
-      <span class="text-sm font-medium">Shops</span>
-    </a>
+<!-- Pandamart -->
+<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+  <i class="ri-shopping-bag-line text-2xl mb-1"></i>
+  <span class="text-sm font-medium">Pandamart</span>
+</a>
 
-    <!-- Caterers -->
-    <a href="#" class="flex flex-col items-center text-gray-500 hover:text-pink-600 transition duration-150 flex-shrink-0">
-      <i class="ri-hotel-line text-2xl mb-1"></i>
-      <span class="text-sm font-medium">Caterers</span>
-    </a>
+<!-- Shops -->
+<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+  <i class="ri-store-2-line text-2xl mb-1"></i>
+  <span class="text-sm font-medium">Shops</span>
+</a>
+
+<!-- Caterers -->
+<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+  <i class="ri-hotel-line text-2xl mb-1"></i>
+  <span class="text-sm font-medium">Caterers</span>
+</a>
+
 
   </div>
 </div>
@@ -282,7 +286,7 @@
 
   <!-- Header -->
   <div class="flex justify-between items-center mb-6">
-    <span class="text-xl font-bold text-pink-600">Quickfood</span>
+    <span class="text-xl font-bold text-orange-600">Quickfood</span>
     <button id="closeDrawerBtn" class="text-gray-400 hover:text-gray-700 focus:outline-none " >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -338,10 +342,10 @@
 
   <div class="space-y-3 mb-6">
 
-    <a href="{{ route('user.login') }}" class="w-full bg-pink-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-pink-700 transition duration-150 uppercase tracking-wider text-center block">
+    <a href="{{ route('user.login') }}" class="w-full bg-orange-600 text-white py-3 rounded-xl font-bold shadow-lg hover:bg-orange-700 transition duration-150 uppercase tracking-wider text-center block">
         Log in
     </a>
-    <a href="{{ route('user.register') }}" class="w-full bg-white border-2 border-pink-600 text-pink-600 py-3 rounded-xl font-bold shadow-sm hover:bg-pink-50 transition duration-150 uppercase tracking-wider text-center block">
+    <a href="{{ route('user.register') }}" class="w-full bg-white border-2 border-orange-600 text-orange-600 py-3 rounded-xl font-bold shadow-sm hover:bg-orange-50 transition duration-150 uppercase tracking-wider text-center block">
         Sign up
     </a>
 </div>
@@ -350,9 +354,9 @@
   <!-- Footer Text -->
   <p class="text-xs text-center text-gray-500 mt-8 px-4">
     By signing up, you agree to our 
-    <a href="#" class="text-pink-600 hover:underline font-medium">Terms and Conditions</a> 
+    <a href="#" class="text-orange-600 hover:underline font-medium">Terms and Conditions</a> 
     and 
-    <a href="#" class="text-pink-600 hover:underline font-medium">Privacy Policy.</a>
+    <a href="#" class="text-orange-600 hover:underline font-medium">Privacy Policy.</a>
   </p>
 
 </div>
@@ -395,7 +399,7 @@
                     <div class="text-sm text-gray-600 flex items-center space-x-2 mt-1">
                         <span>40-60 mins</span>
                         <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
-                        <span class="text-pink-600 flex items-center font-medium">
+                        <span class="text-orange-600 flex items-center font-medium">
                             Free
                         </span>
                     </div>
@@ -423,12 +427,12 @@
         </div>
 
         <div class="mt-2 flex justify-between items-center">
-            <div class="text-pink-600 font-semibold text-sm flex items-center">
+            <div class="text-orange-600 font-semibold text-sm flex items-center">
                 🏷️ Saving Rs.55.00
             </div>
             <div class="text-right">
                 <span class="text-gray-500 line-through text-sm mr-1">Rs.550.00</span>
-                <span class="text-pink-600 font-bold text-xl">Rs.495.00</span>
+                <span class="text-orange-600 font-bold text-xl">Rs.495.00</span>
             </div>
         </div>
 
