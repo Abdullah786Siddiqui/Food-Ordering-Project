@@ -22,4 +22,6 @@
 
 
 /* drawer CSS */
-/* From Uiverse.io by TreepDeep */ 
+ div::-webkit-scrollbar {
+            display: none;
+        }

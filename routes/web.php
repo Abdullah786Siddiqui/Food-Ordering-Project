@@ -100,4 +100,4 @@ Route::prefix('user')->name('user.')->group(function () {
 });
 
 // ===== HOME PAGE =====
-Route::view('/', 'website.index')->name('home');
+Route::view('/', 'Website.index')->name('home');

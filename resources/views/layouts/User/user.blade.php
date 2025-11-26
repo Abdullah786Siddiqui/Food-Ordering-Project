@@ -3,18 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Food-Panda Tailwind Drawer</title>
+  <title>Food-Panda </title>
     @vite(['resources/css/app.css'])
+     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body >
   {{-- Navbar --}}
   @include('Components.website.header')
-
-<main class="sm:ml-60 px-8 max-sm:px-4 py-8 mt-12">
+<main >
             @yield('user')
         </main>
+        
+          {{-- Tailwind JS --}}
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
 </body>
 </html>
