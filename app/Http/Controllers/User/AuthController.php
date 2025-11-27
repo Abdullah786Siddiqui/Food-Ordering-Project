@@ -30,7 +30,7 @@ class AuthController extends Controller
             if ($user->status === 'inactive') {
                 $user->update(['status' => 'active']);
             }
-            return redirect()->route('home');
+            return redirect()->route('user.home');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials']);
@@ -57,7 +57,7 @@ class AuthController extends Controller
         Auth::guard('web')->login($user);
 
         // 4️⃣ Redirect to home
-        return redirect()->route('home');
+        return redirect()->route('user.home');
     }
 
     public function logout(Request $request)
@@ -70,6 +70,6 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home');
+        return redirect()->route('user.home');
     }
 }

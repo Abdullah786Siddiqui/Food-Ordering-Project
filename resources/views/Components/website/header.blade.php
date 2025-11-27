@@ -1,26 +1,28 @@
 {{-- https://docs.google.com/spreadsheets/d/16yb-LE-O_UVD3KtEACoj2AoRYbPYhu6PavCtwkOEma8/edit?gid=1613316536#gid=1613316536 --}}
-<nav class="w-full bg-white  ">
+<nav class="w-full  bg-white shadow-sm ">
     
     <div class="hidden lg:flex items-center justify-between max-w-8xl mx-auto py-2 px-6 space-x-6">
 
-        <div class="flex-shrink-0">
-            <a href="/">
-                <img src="storage/logo/logo.png" alt="logo" class="h-10 w-auto object-contain" />
-            </a>
-        </div>
-        
-        <div class="flex-grow flex justify-center px-4">
-         <div class="flex ">
-  <div class="flex items-center cursor-pointer p-2 text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex-1">
-    <i class="ri-map-pin-line text-blue-600 text-2xl mr-2"></i>
-    <span class="text-lg font-medium">New Address Service Road W Islamabad</span>
+    <div class="relative w-full h-16 bg-white px-4">
+  
+  <!-- Logo absolute -->
+  <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+    <img src="{{ asset('storage/logo/logo.png') }}" alt="logo" class="h-9 w-auto object-contain" />
   </div>
 
-  
+  <!-- Address center -->
+  <div class="flex h-full justify-center items-center">
+    <div class="flex w-full max-w-2xl">
+      <div class="flex items-center justify-center cursor-pointer p-2 px-4 text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex-1">
+        <i class="ri-map-pin-line text-blue-600 text-2xl mr-2"></i>
+        <span class="text-lg font-medium whitespace-nowrap">New Address Service Road W Islamabad</span>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
-        </div>
         
         <div class="flex items-center gap-2 flex-shrink-0">
             
@@ -183,7 +185,7 @@
 
             <div class="flex-grow flex justify-center">
                 <a href="/">
-                    <img src="storage/logo/logo.png" alt="logo" class="h-9 w-auto object-contain" />
+                    <img src="{{ asset('storage/logo/logo.png') }}" alt="logo" class="h-9 w-auto object-contain" />
                 </a>
             </div>
             
@@ -230,48 +232,84 @@
     </div>
 
 </nav>
+{{-- @php
+    function activeTab($route) {
+        return request()->routeIs($route)
+            ? 'border-orange-600 text-orange-600 '
+            : 'border-transparent text-gray-500';
+    }
+@endphp
 
-<nav class="bg-white w-full border-b border-gray-200 md:mt-2">
+<nav class="bg-white w-full border-b border-gray-200 md:mt-2 shadow-lg">
  <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 scrollbar-hide">
-  <div class="flex gap-16  overflow-x-auto ">
+<div class="flex gap-16 overflow-x-auto">
 
-   <!-- Delivery -->
-<a href="#" class="flex gap-2 items-center border-b-4 border-orange-600 text-orange-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
-  <i class="ri-e-bike-2-line text-2xl mb-1"></i>
-  <span class="text-sm font-medium">Delivery</span>
+  <div class="flex gap-16 overflow-x-auto">
+
+    <!-- Delivery -->
+    <a href="{{ route('user.home') }}" class="group flex flex-col items-center relative">
+        <div class="flex gap-2 items-center mb-3">
+            <i class="ri-e-bike-2-line text-2xl
+                {{ request()->routeIs('user.home') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+            </i>
+            <span class="text-sm font-medium
+                {{ request()->routeIs('user.home') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+                Delivery
+            </span>
+        </div>
+        <!-- underline -->
+        <span class="absolute bottom-0 h-1 bg-orange-600 transition-all duration-300
+                     {{ request()->routeIs('user.home') ? 'w-full opacity-100' : 'w-2/5 opacity-0 group-hover:opacity-100 group-hover:w-1/2' }}">
+        </span>
+    </a>
+
+    <!-- Pick-up -->
+    <a href="{{ route('user.pickup') }}" class="group flex flex-col items-center relative">
+        <div class="flex gap-2 items-center">
+            <i class="ri-walk-line text-2xl
+                {{ request()->routeIs('user.pickup') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+            </i>
+            <span class="text-sm font-medium
+                {{ request()->routeIs('user.pickup') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+                Pick-up
+            </span>
+        </div>
+        <span class="absolute bottom-0 h-1 bg-orange-600 transition-all duration-300
+                     {{ request()->routeIs('user.pickup') ? 'w-full opacity-100' : 'w-2/5 opacity-0 group-hover:opacity-100 group-hover:w-1/2' }}">
+        </span>
+    </a>
+
+<a href="{{ route('user.caterers') }}" class="group flex flex-col items-center relative">
+    <div class="flex gap-2 items-center mb-3">
+        <i class="ri-hotel-line text-2xl
+            {{ request()->routeIs('user.caterers') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+        </i>
+        <span class="text-sm font-medium
+            {{ request()->routeIs('user.caterers') ? 'text-orange-600' : 'text-gray-500 group-hover:text-orange-600' }}">
+            Caterers
+        </span>
+    </div>
+    <!-- underline -->
+    <span class="absolute bottom-0 h-1 bg-orange-600 transition-all duration-300
+                 {{ request()->routeIs('user.caterers') ? 'w-full opacity-100' : 'w-2/5 opacity-0 group-hover:opacity-100 group-hover:w-1/2' }}">
+    </span>
 </a>
 
-<!-- Pick-up (Active) -->
-
-<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
-    <i class="ri-walk-line text-2xl mb-1"></i>
-
-  <span class="text-sm font-medium">Pick up</span>
-</a>
-
-<!-- Pandamart -->
-<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
-  <i class="ri-shopping-bag-line text-2xl mb-1"></i>
-  <span class="text-sm font-medium">Pandamart</span>
-</a>
-
-<!-- Shops -->
-<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
-  <i class="ri-store-2-line text-2xl mb-1"></i>
-  <span class="text-sm font-medium">Shops</span>
-</a>
-
-<!-- Caterers -->
-<a href="#" class="flex gap-2 items-center border-b-4 border-transparent text-gray-500 hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
-  <i class="ri-hotel-line text-2xl mb-1"></i>
-  <span class="text-sm font-medium">Caterers</span>
-</a>
 
 
-  </div>
+
+    <!-- Caterers -->
+    {{-- <a href=""
+       class="flex gap-2 items-center border-b-4 {{ activeTab('user.caterers') }} hover:border-orange-600 hover:text-orange-600 transition-all duration-300 flex-shrink-0">
+        <i class="ri-hotel-line text-2xl mb-1"></i>
+        <span class="text-sm font-medium">Caterers</span>
+    </a> --}}
+{{-- 
 </div>
 
-</nav>
+</div>
+
+</nav> --}} 
 
 
 

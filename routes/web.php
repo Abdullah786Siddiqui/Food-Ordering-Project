@@ -97,7 +97,13 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
     });
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+    Route::view('/', 'Website.index')->name('home');
+    Route::view('/pickup', 'Website.pickupItem')->name('pickup');
+    Route::view('/caterers', 'Website.caterers')->name('caterers');
+
+
+
 });
 
 // ===== HOME PAGE =====
-Route::view('/', 'Website.index')->name('home');
+
