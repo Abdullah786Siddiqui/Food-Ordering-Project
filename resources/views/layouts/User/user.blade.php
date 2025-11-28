@@ -6,13 +6,13 @@
   <title>Food-Panda </title>
     @vite(['resources/css/app.css'])
      <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
-<body >
+<body  >
   {{-- Navbar --}}
   @include('Components.website.header')
-<main >
+<main class="pt-16" >
             @yield('user')
         </main>
         

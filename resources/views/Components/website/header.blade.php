@@ -1,5 +1,5 @@
 {{-- https://docs.google.com/spreadsheets/d/16yb-LE-O_UVD3KtEACoj2AoRYbPYhu6PavCtwkOEma8/edit?gid=1613316536#gid=1613316536 --}}
-<nav class="w-full  bg-white shadow-sm ">
+<nav  class="w-full fixed top-0 scrollDiv bg-white  z-50 ">
     
     <div class="hidden lg:flex items-center justify-between max-w-8xl mx-auto py-2 px-6 space-x-6">
 
@@ -11,9 +11,9 @@
   </div>
 
   <!-- Address center -->
-  <div class="flex h-full justify-center items-center">
+  <div class="flex h-full justify-center items-center ">
     <div class="flex w-full max-w-2xl">
-      <div class="flex items-center justify-center cursor-pointer p-2 px-4 text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex-1">
+      <div class="flex items-center justify-center cursor-pointer  border border-gray-300 p-1.5 px-8 text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-200 flex-1">
         <i class="ri-map-pin-line text-blue-600 text-2xl mr-2"></i>
         <span class="text-lg font-medium whitespace-nowrap">New Address Service Road W Islamabad</span>
       </div>
@@ -161,7 +161,7 @@
     </div>
 
 
-    <div class="lg:hidden py-3 px-5">
+    <div  class="lg:hidden pt-3  scrollDiv px-5 fixed top-0 z-50 w-full bg-white">
         
         <div class="flex items-center justify-between">
 
@@ -189,7 +189,7 @@
                 </a>
             </div>
             
-             <div class="lg:hidden  items-center mt-2 ">
+             <div class="lg:hidden  items-center  ">
     @auth
         <!-- Authenticated User: Normal Cart Icon -->
         <div class="relative cursor-pointer hover:opacity-80" data-drawer-target="cart-drawer" data-drawer-show="cart-drawer" data-drawer-placement="right" aria-controls="cart-drawer">
@@ -217,7 +217,7 @@
 </div>
 
         </div>
-<div class="flex justify-center mt-2">
+<div class="flex justify-center mt-4">
   <div class="flex items-center justify-center space-x-5 bg-white p-2 cursor-pointer md:p-2 md:space-x-6">
     <i class="ri-map-pin-line text-blue-600 text-3xl md:text-4xl flex-shrink-0 animate-bounce-slow"></i>
     <div>
@@ -230,8 +230,39 @@
 
 
     </div>
+<script>
+let lastScrollTop = 0;
+const scrollDivs = document.querySelectorAll('.scrollDiv'); // multiple navbars
+let ticking = false;
+const offsetToHide = 10;
 
+window.addEventListener('scroll', () => {
+    const st = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            scrollDivs.forEach(div => {
+                if (st > lastScrollTop + offsetToHide) {
+                    // scrolling down
+                    div.style.transform = 'translateY(-100%)';
+                } else if (st < lastScrollTop - offsetToHide || st === 0) {
+                    // scrolling up
+                    div.style.transform = 'translateY(0)';
+                }
+            });
+
+            lastScrollTop = st <= 0 ? 0 : st;
+            ticking = false;
+        });
+        ticking = true;
+    }
+});
+
+</script>
 </nav>
+
+
+
 {{-- @php
     function activeTab($route) {
         return request()->routeIs($route)
