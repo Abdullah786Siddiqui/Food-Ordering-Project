@@ -1,5 +1,32 @@
 @extends('layouts.User.user')
 @section('user')
+
+
+@auth
+<script>
+const location = JSON.parse(localStorage.getItem('userlocation'));
+
+if (location) {
+    fetch("/user/setlocation", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify(location)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Location saved:", data);
+        // Backend me save hone ke baad localStorage se remove karo
+        localStorage.removeItem('userlocation');
+    })
+    .catch(err => console.error("Error saving location:", err));
+}
+</script>
+@endauth
+
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
 
 <div class="relative w-full h-[360px] sm:h-[400px] lg:h-[450px] mt-20 sm:mt-6">
@@ -36,8 +63,8 @@
  <!-- Search Bar -->
 <div class="mt-6 sm:mt-2 w-full max-w-4xl mx-auto bg-white py-4 px-2 sm:p-6 rounded-3xl shadow-lg">
 
-    <!-- Search Bar -->
-  <div id="searchBar" class="flex items-stretch bg-white rounded-xl shadow-md overflow-hidden sm:gap-0">
+    {{-- Search Bar After Location Accept --}}
+  <div id="afterSearchBar" class="flex hidden items-stretch bg-white rounded-xl shadow-md overflow-hidden sm:gap-0">
     <input
       type="text"
          id="searchInput"
@@ -52,14 +79,44 @@
 </button>
 
   </div>
+     {{-- Search Bar Before Location Accept  --}}
 
+    <div id="beforeSearchBar">
+<div class="relative w-full ">
+<input
+  type="text"
+  id="searchInput"
+  placeholder="Enter your Address"
+  class="w-full  px-4 pr-20 py-3 text-black text-base border border-gray-300 rounded-xl 
+         focus:outline-none focus:ring-1 focus:ring-gray-300 focus:border-gray-300 
+         placeholder-gray-400 transition"
+/>
+
+  <span
+    onclick="handleFindClick()"
+    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-black font-semibold cursor-pointer"
+  >
+    <i class="ri-crosshair-2-fill mr-2"></i>Locate me
+  </span>
+
+
+
+</div>
+
+</div>
+<div id="findfoodbtn" class="hidden w-full max-w-4xl mx-auto flex justify-between items-center mt-3 gap-2">
+  <p class="text-gray-700 text-base  hidden lg:flex">Search for restaurants, dishes or sellers</p>
+  <button onclick="handleFindClick()" class="bg-orange-500 w-full sm:w-56 md:w-64 lg:w-72 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition font-semibold cursor-pointer">
+    Find food
+  </button>
+</div>
 
   <!-- Quick Filters Section -->
-  <div class="flex flex-wrap justify-center sm:justify-between mt-3 items-center gap-2 sm:gap-4">
+  <div id="quickFilter" class="flex hidden flex-wrap justify-center sm:justify-between mt-3 items-center gap-2 sm:gap-4">
     <!-- Hidden on mobile text -->
     <p class="text-sm font-semibold text-gray-700 hidden sm:block">Choose Your Preferences:</p>
 
-<div class="flex  justify-center gap-4 ">
+<div class="flex  justify-center gap-2 sm:gap-4 ">
     
     <!-- Dropdown 1: Category -->
    <div class="dropdown-component relative inline-block text-left" id="dropdown-category">
@@ -281,6 +338,116 @@
 
 </div>
 
+
+
+<div class="max-w-8xl mx-auto px-4 mt-8">
+
+    <!-- Header -->
+     <header class="flex justify-between items-center mb-6 sm:mb-10 pt-4">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-800">Popular Category  </h1>
+            <button class="px-4 py-2 bg-white text-gray-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-150 border border-gray-200 text-sm">
+                View more
+            </button>
+        </header>
+
+  <div class="relative overflow-x-hidden">
+    <div class="infinite-scroll flex gap-4 sm:gap-8 py-4 no-scrollbar">
+
+        <!-- ORIGINAL STRIP -->
+        <div class="flex gap-4 sm:gap-8">
+            <!-- Pizza -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/128/7420/7420188.png" alt="Pizza Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Pizza</p>
+            </div>
+
+            <!-- Hot Dog -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Hot Dog Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Hot Dog</p>
+            </div>
+
+            <!-- Burger -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Burger Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Burger</p>
+            </div>
+
+            <!-- Cake -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1976/1976195.png" alt="Cake Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Cake</p>
+            </div>
+
+            <!-- Sandwich -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046787.png" alt="Sandwich Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Sandwich</p>
+            </div>
+
+            <!-- Fries -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046793.png" alt="Fries Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Fries</p>
+            </div>
+        </div>
+
+        <!-- DUPLICATE STRIP FOR SEAMLESS LOOP -->
+        <div class="flex gap-4 sm:gap-8">
+            <!-- Repeat same items -->
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/128/7420/7420188.png" alt="Pizza Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Pizza</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Hot Dog Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Hot Dog</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Burger Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Burger</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1976/1976195.png" alt="Cake Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Cake</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046787.png" alt="Sandwich Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Sandwich</p>
+            </div>
+            <div class="flex items-center gap-4 bg-[#FFF7F4] px-6 py-6 sm:px-8 sm:py-6 lg:px-10 lg:py-8 rounded-2xl cursor-pointer hover:shadow-lg transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/1046/1046793.png" alt="Fries Icon" class="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <p class="text-xl sm:text-2xl lg:text-3xl font-medium text-gray-700">Fries</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.infinite-scroll {
+    display: flex;
+    width: max-content;
+    animation: scroll-left 22s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* shift by half, because we duplicated */
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+
+</div>
+
+
+
+
+
+
+
 {{-- All Restaurent --}}
 
 
@@ -496,6 +663,144 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script>
+// PAGE LOAD CHECK
+const findFoodBtn = document.getElementById("findfoodbtn");
+const quickFilter = document.getElementById("quickFilter");
+const afterSearchBar = document.getElementById("afterSearchBar");
+const beforeSearchBar = document.getElementById("beforeSearchBar");
+
+// Toggle search view based on whether location is set
+function toggleSearchView(hasLocation) {
+  if (hasLocation) {
+    findFoodBtn.classList.add("hidden");
+    quickFilter.classList.remove("hidden");
+    afterSearchBar.classList.remove("hidden");
+    beforeSearchBar.classList.add("hidden");
+  } else {
+    findFoodBtn.classList.remove("hidden");
+    quickFilter.classList.add("hidden");
+    afterSearchBar.classList.add("hidden");
+    beforeSearchBar.classList.remove("hidden");
+  }
+}
+const userLocation = localStorage.getItem('userlocation');
+toggleSearchView(!!userLocation);
+
+// MAIN FUNCTION
+async function handleFindClick() {
+  if (!navigator.geolocation) {
+    alert("Geolocation is not supported by your browser.");
+    return;
+  }
+const MAPBOX_TOKEN = "pk.eyJ1IjoiYWJkdWxsYWg3ODU4IiwiYSI6ImNtZzQyYjhsMjFhejIybXNjb3RkZXNnYXYifQ.ZiAlY9_deT_SrOHtGLjE_w"; // apna token yahan lagao
+
+navigator.geolocation.getCurrentPosition(async (position) => {
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    try {
+        // Mapbox reverse geocoding
+        const response = await fetch(
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${MAPBOX_TOKEN}`
+        );
+        const data = await response.json();
+   
+        let city = '';
+        let country = '';
+        if (data && data.features && data.features.length > 0) {
+            for (let feature of data.features) {
+                if (feature.place_type.includes("place")) city = feature.text;
+                
+            }
+        }
+
+        console.log("City:", city);
+
+        // LocalStorage me store
+        const location = { latitude: lat, longitude: lng, city };
+        localStorage.setItem('userlocation', JSON.stringify(location));
+    toggleSearchView(true)
+
+        // Agar user login hai to backend me bhej do
+        @auth
+        fetch("/user/setlocation", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(location)
+        })
+        .then(res => res.json())
+        .then(data => console.log("Location saved:", data))
+        .catch(err => console.error(err));
+        @endauth
+
+    } catch (err) {
+        console.error("Mapbox reverse geocoding failed:", err);
+    }
+
+}, (error) => {
+    console.error("Geolocation error:", error);
+});
+
+}
+
+
+
+//   navigator.geolocation.getCurrentPosition(
+//     (position) => {
+//       const lat = position.coords.latitude;
+//       const lng = position.coords.longitude;
+
+//       // LocalStorage me store karo
+//       localStorage.setItem('userlocation', JSON.stringify({ latitude: lat, longitude: lng }));
+
+//       // Search view toggle
+//       toggleSearchView(true);
+//     },
+//     (error) => {
+//       switch(error.code) {
+//         case error.PERMISSION_DENIED:
+//           console.log("User denied the request for Geolocation.");
+//           break;
+//         case error.POSITION_UNAVAILABLE:
+//           console.log("Location information is unavailable.");
+//           break;
+//         case error.TIMEOUT:
+//           console.log("The request to get user location timed out.");
+//           break;
+//         default:
+//           console.log("An unknown error occurred.");
+//       }
+//     }
+//   );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const swiper = new Swiper(".mySwiper", {
     effect: "fade",
     fadeEffect: { crossFade: true },
@@ -504,12 +809,11 @@
   });
   
 const searchInput = document.getElementById('searchInput');
-const searchBar = document.getElementById('searchBar');
 
 searchInput.addEventListener('focus', () => {
   if (window.innerWidth <= 640) { // mobile only
     // Scroll the search bar to the top
-    const topPos = searchBar.offsetTop; 
+    const topPos = afterSearchBar.offsetTop; 
     window.scrollTo({
       top: topPos,
       behavior: 'smooth'

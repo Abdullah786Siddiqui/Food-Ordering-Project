@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\RestaurantController as RestaurantAdminController
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Restaurant\MenuController as RestaurantMenuController;
 use App\Http\Controllers\Restaurant\OrderController as RestaurantOrderController;
+use App\Http\Controllers\User\UserController as MainUserController;
 use Illuminate\Support\Facades\Route;
 
 // ===== ADMIN =====
@@ -96,10 +97,14 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/register', [UserAuthController::class, 'showRegisterForm'])->name('register');
         Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
     });
-    Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
-    Route::view('/', 'Website.index')->name('home');
+
+    // Home Routes
+    Route::get('/', [MainUserController::class, 'index'])->name('home');
+    Route::post('/setlocation',[MainUserController::class, 'setlocation']);
     Route::view('/pickup', 'Website.pickupItem')->name('pickup');
     Route::view('/caterers', 'Website.caterers')->name('caterers');
+    Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+
 
 
 

@@ -55,16 +55,16 @@ class Starter extends Seeder
             'password' => Hash::make('123')
         ]);
 
-        UserLocation::create([
-            'user_id' => $user->id,
-            'city_id' => $city->id,
-            'address' => 'Suujani sector L-1 plot L-8',
-            'country' => 'Pakistan',
-            'latitude' => '25.0102241',
-            'longitude' => '67.0628654',
-            'is_primary' => true,
-            'is_current' => true,
-        ]);
+        // UserLocation::create([
+        //     'user_id' => $user->id,
+        //     'city_id' => $city->id,
+        //     'address' => 'Suujani sector L-1 plot L-8',
+        //     'country' => 'Pakistan',
+        //     'latitude' => '25.0102241',
+        //     'longitude' => '67.0628654',
+        //     'is_primary' => true,
+        //     'is_current' => true,
+        // ]);
 
         Admin::create([
             'name' => 'admin',

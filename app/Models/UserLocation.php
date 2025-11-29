@@ -13,8 +13,8 @@ class UserLocation extends Model
         'country',
         'latitude',
         'longitude',
-        'is_primary',
-        'is_current',
+        // 'is_primary',
+        // 'is_current',
     ];
      
 

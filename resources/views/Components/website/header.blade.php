@@ -35,7 +35,7 @@
 <button
   class="inline-flex w-full items-center justify-center gap-2
          text-black font-semibold rounded-xl shadow-md
-         px-4 py-2 text-sm md:text-base lg:text-lg
+         px-4 py-3 text-sm md:text-base lg:text-lg
          hover:shadow-lg transition-shadow duration-200
          md:px-5 md:py-2 lg:px-6 lg:py-2 lg:mt-1
          bg-white border border-gray-200 hover:border-orange-500 cursor-pointer">
@@ -122,10 +122,10 @@
                     </button>
                 </form> --}}
             @else
-                <a href="{{ route('user.login') }}" class="border border-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 inline-block text-center font-medium text-gray-700">
+                <a href="{{ route('user.login') }}" class="border border-gray-300 px-4 py-3 rounded-lg text-sm hover:bg-gray-100 inline-block text-center font-medium text-gray-700">
                     Log in
                 </a>
-                <a href="{{ route('user.register') }}" class="bg-orange-600 text-white px-5 py-2 rounded-lg text-sm hover:bg-orange-700 inline-block text-center font-semibold">
+                <a href="{{ route('user.register') }}" class="bg-orange-600 text-white px-5 py-3 rounded-lg text-sm hover:bg-orange-700 inline-block text-center font-semibold">
                     Sign up for free delivery
                 </a>
             @endauth
@@ -134,7 +134,7 @@
     @auth
         <!-- Authenticated User: Normal Cart Icon -->
         <div class="relative cursor-pointer hover:opacity-80" data-drawer-target="cart-drawer" data-drawer-show="cart-drawer" data-drawer-placement="right" aria-controls="cart-drawer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-width="1.5" d="M3 3h2l3 12h10l3-8H6" />
             </svg>
             <span class="absolute -top-2 -right-2 bg-orange-600 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">5</span>
@@ -142,7 +142,7 @@
     @else
         <!-- Guest: Dimmed and Disabled -->
         <div class="relative cursor-not-allowed opacity-50 group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-width="1.5" d="M3 3h2l3 12h10l3-8H6" />
             </svg>
             <span class="absolute -top-2 -right-2 bg-gray-400 text-white text-sm w-6 h-6 flex items-center justify-center rounded-full">0</span>
