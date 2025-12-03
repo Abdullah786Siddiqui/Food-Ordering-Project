@@ -33,27 +33,27 @@ class Starter extends Seeder
     public function run(): void
     {
 
-        $province = Province::create([
-            'province_name' => 'sindh',
-            'status' => 'inactive',
-        ]);
+        // $province = Province::create([
+        //     'province_name' => 'sindh',
+        //     'status' => 'inactive',
+        // ]);
 
-        $city =  City::create([
-            'province_id' => $province->id,
-            'city_name' => 'karachi',
-            'status' => 'inactive',
+        // $city =  City::create([
+        //     'province_id' => $province->id,
+        //     'city_name' => 'karachi',
+        //     'status' => 'inactive',
 
-        ]);
+        // ]);
 
-        $user = User::create([
-            'full_name' => 'user',
-            'email' => 'user@gmail.com',
-            'phone_number' => '03160116389',
-            'gender' => 'male',
-            'profile_image' => 'user/user1.jpeg',
-            'status' => 'inactive',
-            'password' => Hash::make('123')
-        ]);
+        // $user = User::create([
+        //     'full_name' => 'user',
+        //     'email' => 'user@gmail.com',
+        //     'phone_number' => '03160116389',
+        //     'gender' => 'male',
+        //     'profile_image' => 'user/user1.jpeg',
+        //     'status' => 'inactive',
+        //     'password' => Hash::make('123')
+        // ]);
 
         // UserLocation::create([
         //     'user_id' => $user->id,
@@ -63,22 +63,21 @@ class Starter extends Seeder
         //     'latitude' => '25.0102241',
         //     'longitude' => '67.0628654',
         //     'is_primary' => true,
-        //     'is_current' => true,
         // ]);
 
-        Admin::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'profile_image' => 'admins/admin1.jpg',
-            'password' => Hash::make('123'),
-        ]);
+        // Admin::create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@gmail.com',
+        //     'profile_image' => 'admins/admin1.jpg',
+        //     'password' => Hash::make('123'),
+        // ]);
 
         $restaurant = Restaurant::create([
-            'name' => 'Kababjees',
-            'email' => 'Kababjees@gmail.com',
-            'image' => 'restaurants/restaurant1.jpg',
+            'name' => 'pizzamax',
+            'email' => 'pizzamax@gmail.com',
+            'image' => 'restaurants/restaurant2.jpg',
             'status' => 'inactive',
-            'rating' => 4.9,
+            'rating' => 5.9,
             'password' => Hash::make('123'),
         ]);
 
@@ -86,12 +85,12 @@ class Starter extends Seeder
             'restaurant_id' => $restaurant->id,
             'city_id' => 1,
             'province_id' => 1,
-            'address' => 'Bharia sector 5-D plot-208',
-            'locality' => 'Bharia',
+            'address' => 'Karsaaz sector 5-D plot-208',
+            'locality' => 'Karsaaz',
             'branch_phone_number' => '0360419389',
-            'branch_email' => 'Kababjees@gmail.com',
-            'latitude' => '25.0115000',
-            'longitude' => '67.0640000',
+            'branch_email' => 'pizzamax@gmail.com',
+            'latitude' => '28.0115000',   
+             'longitude' => '70.0640000', 
             'is_main' => true
         ]);
 
@@ -104,82 +103,82 @@ class Starter extends Seeder
         ]);
 
 
-        DeliveryPartner::create([
-            'name' => 'ali',
-            'email' => 'ali@gmail.com',
-            'cnic' => '4240179256693',
-            'phone_number' => '03160116389',
-            'profile_image' => 'delivery_boy/delivery_boy.png',
-            'dob' => '1998-05-12',
-            'rating' => 4.7,
-            'gender' => 'male',
-            'password' => Hash::make('123')
-        ]);
+        // DeliveryPartner::create([
+        //     'name' => 'ali',
+        //     'email' => 'ali@gmail.com',
+        //     'cnic' => '4240179256693',
+        //     'phone_number' => '03160116389',
+        //     'profile_image' => 'delivery_boy/delivery_boy.png',
+        //     'dob' => '1998-05-12',
+        //     'rating' => 4.7,
+        //     'gender' => 'male',
+        //     'password' => Hash::make('123')
+        // ]);
 
-        DeliverPartnerLocation::create([
-            'delivery_partner_id' => 1,
-            'city_id' => 1,
-            'province_id' => 1,
-            'address' => 'noth karachi sector 5-D plot-208',
-            'locality' => 'north Karachi',
-            'latitude' => '25.0115000',
-            'longitude' => '67.0640000'
-        ]);
+        // DeliverPartnerLocation::create([
+        //     'delivery_partner_id' => 1,
+        //     'city_id' => 1,
+        //     'province_id' => 1,
+        //     'address' => 'noth karachi sector 5-D plot-208',
+        //     'locality' => 'north Karachi',
+        //     'latitude' => '25.0115000',
+        //     'longitude' => '67.0640000'
+        // ]);
 
-        $Category = Category::create([
-            'category_name' => 'Haleem',
-            'category_image' => 'category/haleem.jpg'
-        ]);
+        // $Category = Category::create([
+        //     'category_name' => 'Haleem',
+        //     'category_image' => 'category/haleem.jpg'
+        // ]);
 
-        $menuItem = MenuItem::create([
-            'restaurant_id' => 1,
-            'category_id' => 1,
-            'item_name' => 'beef Haleem',
-            'description' => 'Spicy beef Haleem with Onion',
-            'image_url' => 'menu/haleem.jpg',
-            'price' => 450.00,
-            'rating' => 4.7,
-            'status' => 'active'
-        ]);
+        // $menuItem = MenuItem::create([
+        //     'restaurant_id' => 1,
+        //     'category_id' => 1,
+        //     'item_name' => 'beef Haleem',
+        //     'description' => 'Spicy beef Haleem with Onion',
+        //     'image_url' => 'menu/haleem.jpg',
+        //     'price' => 450.00,
+        //     'rating' => 4.7,
+        //     'status' => 'active'
+        // ]);
 
-        RestaurantCategoryPivot::create([
-            'restaurant_id' => 1,
-            'category_id' => 1
-        ]);
+        // RestaurantCategoryPivot::create([
+        //     'restaurant_id' => 1,
+        //     'category_id' => 1
+        // ]);
       
 
-        $order = Order::create([
-            'user_id' => $user->id,
-            'restaurant_id' => $restaurant->id,
-            'delivery_partner_id' => 1,
-            'total_amount' => 1000.00,
-            'payment_mode' => 'COD',
-            'payment_status' => 'paid',
-            'status' => 'delivered',
-        ]);
+        // $order = Order::create([
+        //     'user_id' => $user->id,
+        //     'restaurant_id' => $restaurant->id,
+        //     'delivery_partner_id' => 1,
+        //     'total_amount' => 1000.00,
+        //     'payment_mode' => 'COD',
+        //     'payment_status' => 'paid',
+        //     'status' => 'delivered',
+        // ]);
 
-        OrderItem::create([
-            'order_id' => $order->id,
-            'menu_id' => $menuItem->id,
-            'product_name' => $menuItem->item_name,
-            'price' => $menuItem->price,
-            'quantity' => 2,
-            'amount' => $menuItem->price * 2,
-        ]);
+        // OrderItem::create([
+        //     'order_id' => $order->id,
+        //     'menu_id' => $menuItem->id,
+        //     'product_name' => $menuItem->item_name,
+        //     'price' => $menuItem->price,
+        //     'quantity' => 2,
+        //     'amount' => $menuItem->price * 2,
+        // ]);
 
-        OrderAddress::create([
-            'order_id' => $order->id,
-            'address' => 'Sector L-1, Plot L-8, Karachi',
-            'locality' => 'Surjani Town',
-            'city_id' => $city->id,
-            'latitude' => '25.0102241',
-            'longitude' => '67.0628654',
-        ]);
+        // OrderAddress::create([
+        //     'order_id' => $order->id,
+        //     'address' => 'Sector L-1, Plot L-8, Karachi',
+        //     'locality' => 'Surjani Town',
+        //     'city_id' => $city->id,
+        //     'latitude' => '25.0102241',
+        //     'longitude' => '67.0628654',
+        // ]);
 
-        OrderPayment::create([
-            'order_id' => $order->id,
-            'payment_mode' => 'COD',
-            'payment_status' => 'success',
-        ]);
+        // OrderPayment::create([
+        //     'order_id' => $order->id,
+        //     'payment_mode' => 'COD',
+        //     'payment_status' => 'success',
+        // ]);
     }
 }

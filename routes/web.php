@@ -98,12 +98,19 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/register', [UserAuthController::class, 'register'])->name('register.submit');
     });
 
-    // Home Routes
-    Route::get('/', [MainUserController::class, 'index'])->name('home');
-    Route::post('/setlocation',[MainUserController::class, 'setlocation']);
-    Route::view('/pickup', 'Website.pickupItem')->name('pickup');
-    Route::view('/caterers', 'Website.caterers')->name('caterers');
-    Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+    // Location routes
+
+    // Protected routes
+    Route::middleware('userlocation')->group(function () {
+        Route::get('/home', [MainUserController::class, 'index'])->name('home');
+        Route::get('/location', [MainUserController::class, 'setLocation'])->name('location.show');
+        Route::get('/restaurants/nearby', [MainUserController::class, 'nearbyRestaurants']);
+        Route::view('/pickup', 'Website.pickupItem')->name('pickup');
+        Route::view('/caterers', 'Website.caterers')->name('caterers');
+        Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
+    });
+
+    Route::post('/location', [MainUserController::class, 'storeLocation'])->name('location.store');
 
 
 

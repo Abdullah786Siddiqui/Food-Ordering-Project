@@ -13,8 +13,7 @@ class UserLocation extends Model
         'country',
         'latitude',
         'longitude',
-        // 'is_primary',
-        // 'is_current',
+        'is_primary',
     ];
      
 
@@ -37,11 +36,5 @@ class UserLocation extends Model
    
 
 
-    /**
-     * Scope: Only current live location only one row create and then update to every new real time location
-     */
-    public function scopeCurrent($query)
-    {
-        return $query->where('is_current', true);
-    }
+    
 }

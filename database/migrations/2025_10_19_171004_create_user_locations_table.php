@@ -20,9 +20,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             //Manual Add location  recently add is true and previous all are false
-            // $table->boolean('is_primary')->default(true);
-            // GPS fetch location its a  current lngitutde longitude for nearby restaurent fetch
-            // $table->boolean('is_current')->default(false);
+            $table->boolean('is_primary')->default(true);
             $table->timestamps();
             // Forign Key
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

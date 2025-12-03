@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckUserLocation;
 use App\Http\Middleware\CustomAuth;
 use App\Http\Middleware\RedirectAuth;
 use Illuminate\Foundation\Application;
@@ -14,13 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
        $middleware->alias([
-
             'custom_auth' => CustomAuth::class,
-            'RedirectAuth' => RedirectAuth::class
-
-
-
-
+            'RedirectAuth' => RedirectAuth::class,
+            'userlocation' => CheckUserLocation::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
