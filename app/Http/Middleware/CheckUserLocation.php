@@ -14,19 +14,19 @@ class CheckUserLocation
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-   // public function handle(Request $request, Closure $next): Response
-{
-    $cookies = $request->cookie('userlocation');
-    $currentRoute = $request->route()->getName();
+    // public function handle(Request $request, Closure $next): Response
+    {
+        $cookies = $request->cookie('userlocation');
+        $currentRoute = $request->route()->getName();
 
-    if (!$cookies && $currentRoute !== 'user.location.show') {
-        return redirect()->route('user.location.show');
+        if (! $cookies && $currentRoute !== 'user.location.show') {
+            return redirect()->route('user.location.show');
+        }
+
+        if ($cookies && $currentRoute === 'user.location.show') {
+            return redirect()->route('user.home');
+        }
+
+        return $next($request);
     }
-
-    if ($cookies && $currentRoute === 'user.location.show') {
-        return redirect()->route('user.home'); 
-    }
-
-    return $next($request);
-}
 }
